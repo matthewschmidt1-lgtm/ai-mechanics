@@ -33,7 +33,7 @@
       box('def', 'Definition', P(`A ${T('language model')} reads a sequence of tokens and assigns a score to every possible next token. Those scores can be converted into <b>probabilities</b> (also called <b>chances</b>): numbers from 0 to 1 that add up to 1.`)),
       prose('Take <i>The cat sat on the</i>. A good model gives most of the probability to <i>mat</i>, <i>floor</i> and <i>sofa</i>, and almost none to <i>banana</i>. It generally computes its prediction from numbers it learned in training, rather than looking up a prewritten answer.'),
       box('key', 'Key idea', P('A reply is built one token at a time. Each token is predicted from the text so far.')),
-      prose('We will follow <i>The cat sat on the</i> through seven stages. You only need basic arithmetic and a calculator.')]],
+      prose('We will follow <i>The cat sat on the</i> through seven stages: text, tokens, vectors, transformer, scores, probabilities, pick. You only need basic arithmetic and a calculator.')]],
     ['1.2', 'From text to tokens', [
       prose('The model needs numbers to process text. First, it splits the text into tokens and assigns each token an ID.'),
       box('def', 'Definition', P(`A ${T('token')} is one piece of text: a word, part of a word, or a punctuation mark. The model knows a fixed list of tokens, its ${T('vocabulary')}, often 50,000 to 200,000 long. Each token has its own whole number, its ${T('id')}. From here on, “word” is shorthand for “token”.`)),
@@ -45,7 +45,7 @@
           h('li', { html: 'Look each piece up in the vocabulary.' })]),
         h('table', { class: 'calc' }, h('tr', {}, ['Position', 'Token', 'Id'].map(t => h('th', {}, t))), ...['The', ' cat', ' sat', ' on', ' the'].map((t, i) => h('tr', {}, h('td', {}, String(i)), h('td', {}, JSON.stringify(t)), h('td', {}, String([464, 3797, 3332, 319, 262][i]))))),
         P('<b>Answer:</b> <code>[464, 3797, 3332, 319, 262]</code>. Note that <i>The</i> and <i> the</i> get different ids: a capital letter or a leading space makes a different token.')),
-      box('analogy', 'Analogy', P('Think of a coat check. A coat-check ticket number stands for your coat. The model handles the tickets, not the coats.'))]],
+      box('analogy', 'Analogy', P('Think of a coat check. The ticket number stands for your coat, and the staff handle tickets, not coats. The model handles ids, not text.'))]],
     ['1.3', 'From tokens to vectors', [
       prose('Ids are labels, like jersey numbers. Player 23 is not better than player 7. The model needs a numerical representation for each token.'),
       box('def', 'Definition', P(`A ${T('vector')} is a list of numbers. An ${T('embedding')} is the vector that stands for one token. They are kept in one big table: one row per token.`)),
@@ -53,7 +53,7 @@
       prose('The id is just a row number. Row 3797 holds hundreds of numbers for <i> cat</i>. They start with initial values. Training adjusts them so the model becomes better at predicting tokens (Chapter 4).',
         'The model also represents each token’s position in the sequence.'),
       fig(2, '1.2', 'The embedding table', 'Each id selects one row of the table. The five rows, stacked, are what enters the transformer. Only 16 columns are drawn.'),
-      box('example', 'Worked example 1.2  ·  Measuring similarity', P('Four multiplications and two additions. That is all. A toy model gives each word two numbers: <code>cat = (0.9, 0.8)</code>, <code>dog = (0.85, 0.75)</code>, <code>car = (−0.7, 0.2)</code>. Which word is closest to <i>cat</i>? (Real vectors have hundreds of numbers.)'),
+      box('example', 'Worked example 1.2  ·  Measuring similarity', P('A toy model gives each word two numbers: <code>cat = (0.9, 0.8)</code>, <code>dog = (0.85, 0.75)</code>, <code>car = (−0.7, 0.2)</code>. Which word is closest to <i>cat</i>? (Real vectors have hundreds of numbers.)'),
         h('ol', { class: 'steps' }, [
           h('li', { html: 'For this toy example, use the <b>dot product</b> as a similarity score: multiply matching numbers, then add the results. A larger score means a stronger match in this example. Real embedding comparisons depend on how the vectors are trained and which similarity measure is used.' }),
           h('li', { html: `cat · dog = (0.9)(0.85) + (0.8)(0.75) = ${f(vec.cat[0] * vec.dog[0], 3)} + ${f(vec.cat[1] * vec.dog[1], 3)} = <b>${f(dot(vec.cat, vec.dog), 3)}</b>` }),
@@ -68,7 +68,7 @@
       box('analogy', 'Analogy', P('Five people sit in a row, each holding a note about one word. In each round, everyone reads the notes to their left, then rewrites their own. After many rounds, the last note holds the context of the whole sentence, and the model uses it to predict the next token.')),
       box('key', 'Key idea', P('The transformer builds context at each position. The final position helps predict the next token.'))]],
     ['1.5', 'Scores and probabilities', [
-      prose('After many layers, the final position represents the text seen so far. The model multiplies it by a large table of learned numbers, called weights, to produce one score for every token in the vocabulary. Chapter 4 shows how they are learned.'),
+      prose('After many layers, the final position represents the text seen so far. The model multiplies it by a large table of learned numbers, called parameters or weights, to produce one score for every token in the vocabulary. Chapter 4 shows how they are learned.'),
       box('def', 'Definition', P(`A ${T('logit')} is a token’s raw score. Higher means more likely. Logits can be negative, and they do not add up to 1, so they are not yet probabilities.`)),
       fig(4, '1.4', 'One score for every token', 'One logit per token. Eight candidates are shown; the real list has tens of thousands.'),
       prose('We want probabilities: numbers that are never negative and that add up to 1. <b>Softmax</b> gets there in two moves.'),
@@ -91,7 +91,7 @@
       prose('Now the model must choose one token. There are two common ways.'),
       box('def', 'Definition', P(`${T('Greedy decoding')} always takes the top token. ${T('Sampling')} spins a weighted wheel: a token with 20% probability is picked about 20% of the time.`)),
       box('analogy', 'Analogy', P('Picture a roulette wheel with slices of different sizes. Greedy always bets on the biggest slice. Sampling spins the wheel. The big slice wins most often, but not always. That is why one prompt can give different replies.')),
-      box('example', 'Worked example 1.4  ·  Sampling a token', P(`Read the table to find the answer. Use the eight probabilities from Figure 1.5. The computer draws a random number between 0 and 1: <b>${u}</b>. Which token is chosen?`),
+      box('example', 'Worked example 1.4  ·  Sampling a token', P(`Use the eight probabilities from Figure 1.5 (the table lists the first five slices). The computer draws a random number between 0 and 1: <b>${u}</b>. Which token is chosen?`),
         h('ol', { class: 'steps' }, [
           h('li', { html: 'Lay the probabilities end to end on a strip from 0 to 1. Each token owns a slice as wide as its probability.' }),
           h('li', { html: 'Find the slice that contains the random number.' })]),
@@ -106,10 +106,11 @@
       h('table', { class: 'summary-table' }, h('tr', {}, ['Stage', 'What happens'].map(t => h('th', {}, t))),
         ...[['Text', 'The sentence you type.'], ['Tokens', 'Cut into pieces. Each gets a whole number.'], ['Vectors', 'Each token ID selects a row of numbers called an embedding.'], ['Transformer', 'The lists share clues, looking only backward.'], ['Scores', 'One raw score per token in the vocabulary.'], ['Probabilities', 'Scores become chances that add up to 100%.'], ['Pick', 'One token is chosen and added. Repeat.']].map(r => h('tr', {}, r.map(c => h('td', {}, c))))),
       box('key', 'Chapter in one line', P('A language model turns text into numbers, lets each word gather context, scores every token, picks one, and repeats.')),
+      prose('The transformer was a black box in this chapter. Chapter 2 opens it, starting with attention.'),
       prose('Try these before you open the answers.'),
       box('check', 'Exercises',
         h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> Why can the same prompt produce different replies?' }), ans('When sampling is used, the model draws a token at random, weighted by its probability. Likely tokens are chosen more often, but less likely tokens can win too.')),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span> The word <i>the</i> is the fifth token. Which other tokens can it attend to?' }), ans('All earlier tokens (<i>The</i>, <i>cat</i>, <i>sat</i>, <i>on</i>) and itself. Attention looks backward only.')),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span> The word <i>the</i> is the fifth token. Which other tokens can it read from?' }), ans('All earlier tokens (<i>The</i>, <i>cat</i>, <i>sat</i>, <i>on</i>) and itself. Attention looks backward only.')),
         h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">3.</span> A model outputs logits 2.0 and 0.0 for two tokens. Find the probabilities.' }), ans('exp(2.0) = 7.39 and exp(0) = 1. They add to 8.39. So 88.1% and 11.9%.')),
         h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">4.</span> A model generates a reply of 120 tokens. How many next-token predictions does it make?' }), ans('120 predictions, one for each generated token.')))]]
   ];

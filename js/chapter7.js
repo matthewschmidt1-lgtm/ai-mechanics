@@ -27,8 +27,8 @@
 
   const secs = [
     ['7.1', 'Learning without changing a weight', [
-      prose('In Chapter 4, learning meant changing the parameters, also called weights. Training can take weeks. But a model can also pick up a new task in seconds, from the text you give it.',
-        'Show it a few examples and it often follows the pattern. Not one weight changes. The examples mostly show which task you want; training supplied the skills.'),
+      prose('Chapter 6 showed how size changes loss. This chapter asks a different question: what can a model that is already trained do from the text you give it? In Chapter 4, learning meant changing the parameters, also called weights (not the attention weights of Chapter 2). Training can take weeks. But a model can also pick up a new task in seconds, from the text you give it.',
+        'Show it a few examples and it often follows the pattern. Not one weight changes. The examples mostly show which task you want; the skills came from training.'),
       box('def', 'Definition', P(`${T('In-context learning')} is when a model picks up a task from examples or instructions in its prompt, with no change to its weights. The <b>prompt</b> is the text you give the model before it answers.`)),
       fig(0, '7.1', 'A task taught by the prompt', 'Three examples define a labeling scheme the model has to infer. It then labels the new sentence.'),
       prose('Three set-ups are common. <b>Zero-shot</b> gives an instruction and no examples. <b>One-shot</b> gives one example. <b>Few-shot</b> gives a handful.'),
@@ -36,7 +36,7 @@
         h('ol', { class: 'steps' }, [h('li', { html: 'Read the chance of GREEN after 0, 1, 2, 3 and 4 examples.' }), h('li', { html: 'Subtract each GREEN chance from the one after it.' })]),
         tab(['Examples', 'GREEN', 'RED', 'YELLOW', 'GREEN gain'], SHIFT.map((r, i) => ({ cells: [String(i), r[0] + '%', r[1] + '%', r[2] + '%', i ? '+' + (r[0] - SHIFT[i - 1][0]) + ' points' : '–'], hl: [1] }))),
         P(`<b>Answer:</b> the chance of GREEN rises from ${SHIFT[0][0]}% to ${SHIFT[4][0]}% (invented), in steps of 14, 13, 17 and 10 points. Each row adds to 100%. The weights stayed the same. Only the prompt changed.`)),
-      ref(P(`<b>Karpathy on the Lex Fridman Podcast</b> (#333, October 2022; this comes about 1:10, near the end of the conversation). He says the way we program computers is converging on how we program people: you prompt a person to do things, and plain-language prompts are starting to be the way we program computers. ${a(LEX, 'Listen')} \u00b7 ${a(PS, 'Transcript (third-party)')}`)),
+      ref(P(`<b>Andrej Karpathy</b>, an AI researcher who helped build modern language models, on the Lex Fridman Podcast (#333, October 2022; about 1:10, near the end). As we read him, he is comparing two things: prompting a person to do something, and prompting a model. Plain-language prompts, he suggests, are becoming a way to program computers. ${a(LEX, 'Listen')} \u00b7 ${a(PS, 'Transcript (third-party)')}`)),
       fewShot(),
       box('key', 'Key idea', P('A model can pick up a task from its prompt, and in the usual setup it loses the task when the prompt is gone.'))]],
     ['7.2', 'One way it works: copying patterns', [
@@ -48,14 +48,14 @@
         h('ol', { class: 'steps' }, [h('li', { html: 'The last token is <b>blue</b>.' }), h('li', { html: 'Look back for an earlier <b>blue</b>. It is token 1.' }), h('li', { html: 'See what came after it. Token 2 is <b>sky</b>.' }), h('li', { html: 'Predict <b>sky</b>.' })]),
         tab(['Position', 'Token'], ['blue', 'sky', 'red', 'rose', 'blue'].map((w, i) => ({ cells: [String(i + 1), w], hl: i === 1 ? [0, 1] : [] }))),
         P('<b>Answer:</b> <i>sky</i>. This simple rule only matches and copies. It does not need to know what a sky is. Real models use meaning as well.')),
-      ref(P(`<b>Andrej Karpathy</b>, an AI researcher who helped build modern language models, was asked on the Dwarkesh Patel podcast (October 2025, about 14:42) whether in-context learning is gradient descent. He is hesitant to say yes. He points to a paper in which networks learned to fit a line from examples in the prompt, in ways that resemble gradient descent, and says nobody really knows. ${a(YT, 'Watch')} \u00b7 ${a(DW, 'Transcript')}`)),
+      ref(P(`<b>Karpathy on the Dwarkesh Patel podcast</b> (October 2025, about 14:42). Asked whether in-context learning is gradient descent, he is hesitant to say yes. He points to a paper in which networks learned to fit a line from examples in the prompt, in ways that resemble gradient descent, and says nobody really knows. ${a(YT, 'Watch')} \u00b7 ${a(DW, 'Transcript')}`)),
       prose('Induction heads copy exact repeats. Real tasks need looser matching, so other mechanisms probably help too. Researchers are still studying this.'),
       box('key', 'Key idea', P('In-context learning works partly by spotting and continuing patterns, and attention is what lets the model see them.'))]],
     ['7.3', 'Working memory and long-term memory', [
       prose('A model has two places to hold knowledge. The weights hold what it learned in training. The context window holds the prompt.',
         'They behave very differently.'),
       fig(2, '7.3', 'Two kinds of memory', 'Knowledge in the weights is lasting but blurry. Knowledge in the context is sharp but temporary.'),
-      ref(P(`<b>Karpathy on the Dwarkesh Patel podcast</b> (around 17:46). He describes knowledge in the weights as a hazy recollection, because the weights hold only a compressed trace of the training text. The context window is closer to working memory: the model can see everything in it directly. His tip: for better answers about a book chapter, put the chapter in the prompt instead of relying on the model’s memory. ${a(YT, 'Watch')} · ${a(DW, 'Transcript')}`)),
+      ref(P(`<b>Karpathy on the Dwarkesh Patel podcast</b> (around 17:46). He describes knowledge in the weights as a hazy recollection, because the weights hold only a compressed trace of the training text. The prompt (the context window) is closer to working memory: the model can see everything in it directly. His tip: for better answers about a book chapter, put the chapter in the prompt instead of relying on the model’s memory. ${a(YT, 'Watch')} · ${a(DW, 'Transcript')}`)),
       box('def', 'Definition', P(`The ${T('context window')} is the most text, counted in tokens, that a model can read at once. In the usual setup, the prompt and the reply must both fit.`)),
       prose('A useful rule of thumb for ordinary English: one token is about three quarters of a word. So 8,000 tokens is about 6,000 words.'),
       box('example', 'Worked example 7.3  ·  How many examples fit?', P('A model has an 8,000-token context window (a toy size; many real models hold far more). The instructions, the new question and room for the reply take 300 tokens. Each example takes 40 tokens. How many examples fit? This is one subtraction and one division.'),
@@ -67,7 +67,7 @@
         'It is <b>temporary</b>. In the usual setup, when the conversation ends the model keeps nothing. The weights are exactly as they were.'),
       prose('It is <b>bounded</b>. Only what fits in the context window can be used.',
         'It is <b>sensitive</b>. The order and wording of the examples can change the answer. And a long prompt costs more to process.'),
-      ref(P(`<b>Karpathy on the Dwarkesh Patel podcast</b> (near the start, and about 21:16 to 24:02). He says today’s assistants cannot learn new things from one conversation. People seem to fold each day into their brain’s weights, perhaps during sleep, and language models have no equivalent step. He floats ideas for fixing this and expects the work to take roughly a decade. ${a(YT, 'Watch')} · ${a(DW, 'Transcript')}`)),
+      ref(P(`<b>Karpathy on the Dwarkesh Patel podcast</b> (near the start, and about 21:16 to 24:02). He says today’s assistants cannot learn new things from one conversation. As he puts it, people seem to fold each day into something like their brain’s weights, perhaps during sleep, and language models have no equivalent step. He floats ideas for fixing this and guesses the work could take roughly a decade. ${a(YT, 'Watch')} · ${a(DW, 'Transcript')}`)),
       box('key', 'Key idea', P('The context window is a notepad. The weights are a lifetime of reading. Only further training changes the weights.')),
       box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> You teach a model your labeling scheme in one conversation. You start a new conversation. What does it remember?' }), ans('Nothing, in the usual setup. The scheme lived only in the earlier prompt, and the weights never changed. (Some apps save notes and paste them into the new prompt, but that is the prompt again.)')))]],
     ['7.5', 'Further listening', [
@@ -79,6 +79,7 @@
     ['7.6', 'Chapter summary and practice', [
       tab(['Word', 'Plain meaning'], [{ cells: ['In-context learning', 'Picking up a task from the prompt, with no change to the weights'] }, { cells: ['Zero-shot, few-shot', 'No examples, or a handful'] }, { cells: ['Induction head', 'An attention head that spots a repeat and pushes the model to copy what followed'] }, { cells: ['Context window', 'The most text, in tokens, that a model can read at once'] }, { cells: ['Weights', 'Another name for the parameters: what training stored, lasting but blurry (not the attention weights of Chapter 2)'] }]),
       box('key', 'Chapter in one line', P('A model can pick up a task from its prompt, partly because attention lets it spot patterns there, but in the usual setup that learning is gone when the prompt is.')),
+      prose('Chapter 8 asks how a model that only continues text becomes an assistant.'),
       prose('Try these before you open the answers.'),
       box('check', 'Exercises',
         h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> Does in-context learning change the model’s weights?' }), ans('No. The examples are just more input text. The model reads them through attention and uses them to shape its next-token chances, but nothing writes to the weights. Only training does that.')),

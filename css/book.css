@@ -294,3 +294,7 @@ a.cc .m .ok{color:var(--good);font-weight:700}
 .eq .frac .num{border-bottom:1.5px solid currentColor;padding:0 .35em .2em}
 .eq .frac .den{padding:.2em .35em 0}
 .eq{white-space:nowrap;line-height:1.6}
+
+/* two-column glossary tables read left to right */
+table.calc.text th,table.calc.text td{text-align:left}
+table.calc.text td:first-child{white-space:nowrap;font-weight:600}

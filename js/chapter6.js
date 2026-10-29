@@ -27,13 +27,13 @@
 
   const secs = [
     ['6.1', 'A forecast before the spending', [
+      prose('All the numbers in this chapter are invented, to show the shape of a curve. They are not measurements of any real model.'),
       prose('Training a large model can cost millions of dollars. No one wants to guess how well it will turn out. Scaling laws let researchers forecast it.',
         'The method is simple. Train several small models and measure the loss of each. Draw the curve, then extend it to estimate a much larger model.'),
       box('def', 'Definition', P(`A ${T('scaling law')} is a rule, found by measurement, that predicts a model’s loss from the resources spent on it, such as its size. Loss is the number from Chapter 4. Lower is better.`)),
       box('analogy', 'Analogy', P('Time a runner over short races to guess a marathon time. It works until tiredness changes the pattern.')),
       box('key', 'Key idea', P('Within the sizes tested, loss falls with size in a smooth, predictable way, so you can forecast before you spend.')),
-      prose('All the numbers in this chapter are invented, to show the shape of a curve. They are not measurements of any real model.',
-        'You only need basic arithmetic and a calculator with a power button (<code>y^x</code>).')]],
+      prose('You only need basic arithmetic and a calculator with a power button (<code>y^x</code>).')]],
     ['6.2', 'The shape of the curve', [
       prose('Plot loss against model size and you get a curve. It falls fast at first, then more slowly.',
         'In this model, the loss never reaches zero, because language is partly unpredictable. The curve flattens toward a floor.',
@@ -48,7 +48,8 @@
     ['6.3', 'Diminishing returns', [
       prose(`Look at the gap above the floor. Each doubling of size shrinks the gap to about ${f(Math.pow(2, -ALPHA), 2)} of what it was.`,
         `So each doubling removes only about ${Math.round((1 - Math.pow(2, -ALPHA)) * 100)}% of the gap that is left. (Behind this is 2^−${ALPHA} = 1 ÷ 1.23 ≈ ${f(Math.pow(2, -ALPHA), 2)}. You can skip the details.)`),
-      fig(1, '6.2', 'A straight line on a log-log plot', 'Both axes use a log scale. Along the bottom, each step is ten times larger. Up the side, each step is half as large. Invented numbers.'),
+      prose('The next figure plots the same curve on log scales, where each step along an axis multiplies the value instead of adding to it. A power law then shows up as a straight line.'),
+      fig(1, '6.2', 'A straight line on a log-log plot', 'Both axes use a log scale. A power law shows up as a straight line. Invented numbers.'),
       box('analogy', 'Analogy', P('Studying for an exam. The first hour teaches a lot. The tenth hour teaches much less.')),
       box('example', 'Worked example 6.2  ·  Three doublings', P('Start at 10 billion parameters and double the size three times. How much loss does each doubling save? (The numbers are invented, as before.)'),
         h('ol', { class: 'steps' }, [h('li', { html: 'Compute each loss as in Worked example 6.1: N^0.3, divide, add the floor.' }), h('li', { html: 'Subtract each loss from the one before.' })]),
@@ -60,12 +61,12 @@
       prose('Size is not the only ingredient. A model also needs training data and compute. Compute is the total arithmetic done during training.'),
       box('def', 'Definition', P(`<b>D</b> is the number of ${T('tokens')} the model reads in training. A token is a small piece of text. <b>N</b> is the number of parameters. Compute, <b>C</b>, is the total arithmetic done. For a standard transformer, a rule of thumb links the three (≈ means “about equal”):`), eq('C ≈ 6 × N × D'), P('Roughly 6 arithmetic operations per parameter for each token read.')),
       fig(2, '6.3', 'Size, data and compute', 'The three ingredients are tied together by one rule. Spend more of one and the budget forces a choice about the others.'),
-      prose('In 2022, a study called Chinchilla estimated that, for a fixed compute budget, the best results came from growing the model and the data together.',
+      prose('In 2022, researchers at DeepMind trained a model called Chinchilla and used it to estimate how to spend a fixed compute budget. The best results came from growing the model and the data together.',
         'A common summary is about 20 tokens per parameter.'),
-      box('example', 'Worked example 6.3  ·  Budgeting a 70-billion-parameter model', P('A model has N = 70 billion parameters. A calculator helps. Find the tokens it should read and the compute needed.'),
+      box('example', 'Worked example 6.3  ·  Budgeting a 70-billion-parameter model', P('A model has N = 70 billion parameters. Find the tokens it should read and the compute needed.'),
         h('ol', { class: 'steps' }, [h('li', { html: 'Tokens: D ≈ 20 × N = 20 × 70 billion.' }), h('li', { html: 'Compute: 6 × N × D. Write N as 70 (billions) and D as 1.4 (trillions), and multiply the plain numbers: 6 × 70 × 1.4 = 588. Billions times trillions gives 10^9 × 10^12 = 10^21, so C = 588 × 10^21. (10^21 is a 1 followed by 21 zeros.)' })]),
         tab(['Quantity', 'Value'], [{ cells: ['N', '70 billion'] }, { cells: ['D = 20 × N', `${f(20 * 70 / 1000, 1)} trillion tokens`] }, { cells: ['C = 6 × N × D', `${sci(6 * 70e9 * 1.4e12)} arithmetic operations`] }]),
-        P(`<b>Answer:</b> about 1.4 trillion tokens and 588 × 10^21 operations, written ${sci(6 * 70e9 * 1.4e12)}. Chinchilla itself was a 70-billion-parameter model trained on about 1.4 trillion tokens.`)),
+        P(`<b>Answer:</b> about 1.4 trillion tokens and 588 × 10^21 operations, written ${sci(6 * 70e9 * 1.4e12)}. Chinchilla itself had 70 billion parameters and read about 1.4 trillion tokens.`)),
       box('note', 'A rule of thumb, not a law', P('Many recent models read far more than 20 tokens per parameter. For example, Llama 3’s 8-billion-parameter model read about 15 trillion tokens. A smaller model trained longer can be cheaper to run afterward.')),
       box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> A 10-billion-parameter model follows the rule of thumb. How many tokens should it read?' }), ans('D ≈ 20 × N = 20 × 10 billion = 200 billion tokens.')))]],
     ['6.5', 'What scaling laws do not tell you', [
@@ -78,6 +79,7 @@
     ['6.6', 'Chapter summary and practice', [
       tab(['Word', 'Plain meaning'], [{ cells: ['Scaling law', 'A measured rule that predicts loss from resources such as size'] }, { cells: ['Power law', 'In this chapter’s form, each doubling shrinks the gap by the same fraction'] }, { cells: ['Floor', 'The lowest loss that the fitted curve approaches'] }, { cells: ['Tokens (D)', 'How much text the model reads in training'] }, { cells: ['Compute (C)', 'Total arithmetic in training, roughly 6 × N × D'] }]),
       box('key', 'Chapter in one line', P('Within the tested range, loss tends to fall smoothly as size grows, with diminishing returns, so researchers can forecast the payoff and balance size, data and compute.')),
+      prose('Scaling makes a model better at predicting. Chapter 7 asks how a trained model can pick up a new task from nothing but the text you give it.'),
       prose('Try these before you open the answers.'),
       box('check', 'Exercises',
         h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> Using floor = 1.0, a = 1.5 and α = 0.3, predict the loss at N = 4 billion.' }), ans(`4^0.3 = ${f(Math.pow(4, .3), 3)}, so 1.5 ÷ ${f(Math.pow(4, .3), 3)} = ${f(1.5 / Math.pow(4, .3), 3)}. Adding the floor, 1.0, gives ${f(loss(4), 2)}.`)),

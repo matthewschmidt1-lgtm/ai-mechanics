@@ -53,6 +53,7 @@
       h('section', { class: 'chapter-hero' }, h('div', { class: 'in' }, h('div', { class: 'kicker' }, cfg.kicker), h('h1', {}, cfg.title), h('p', { class: 'sub' }, cfg.sub), h('div', { class: 'meta', html: cfg.meta }))),
       h('div', { class: 'layout' }, toc, h('div', {}, article, nav, h('div', { class: 'foot' }, 'Examples and numbers are illustrative.'))));
     document.getElementById('app').replaceChildren(root);
+    root.querySelectorAll('table.calc').forEach(t => { const r0 = t.querySelector('tr'); if (r0 && r0.children.length === 2 && [...t.querySelectorAll('td:last-child')].some(c => /[A-Za-z]{4,}/.test(c.textContent))) t.classList.add('text'); });
     const fio = new IntersectionObserver(es => es.forEach(e => { const fg = figs.find(x => x.el === e.target); if (e.isIntersecting && fg && !fg.done) { fg.done = true; fg.draw(); } }), { threshold: .35 });
     figs.forEach(x => fio.observe(x.el));
     const links = [...toc.querySelectorAll('a')], secEls = [...article.children], crumbEl = root.querySelector('.crumb'), cnt = toc.querySelector('.count'), base = cfg.crumb;

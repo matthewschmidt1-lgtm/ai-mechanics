@@ -27,6 +27,7 @@
 
   const secs = [
     ['9.1', 'More capacity without more work', [
+      prose('This chapter is optional. It builds on Chapters 3 and 6, so it is also a check on how much you now understand.'),
       prose('A <b>dense</b> model uses all of its parameters (also called weights) for every token. Make it bigger and every token costs more.',
         'A mixture of experts tries something different. Store many parameters, but use only some of them for each token.'),
       box('def', 'Definition', P(`A ${T('mixture of experts')} (MoE) model splits part of its network into many separate pieces called experts. For each token, only a few experts do any work. So the model can store far more parameters than it uses on any one token.`)),
@@ -44,7 +45,7 @@
       box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> Which count sets how much arithmetic one token needs: total or active parameters?' }), ans('Active parameters. Only the chosen experts and the shared parts do any work for that token, so they set roughly how much arithmetic it needs.')))]],
     ['9.3', 'Two knobs', [
       prose('For a dense model there is one knob: size. A routed model has two. <b>Active size</b> N roughly sets the arithmetic per token. <b>Expert count</b> E sets how much extra capacity is stored.',
-        'A 2022 paper, <i>Unified Scaling Laws for Routed Language Models</i>, measured how loss depends on both knobs. (Loss is the error score from Chapter 4: lower is better. Chapter 6 covers scaling laws.) Its formula adds up three effects: size, experts, and how the two affect each other.',
+        'A 2022 paper, <i>Unified Scaling Laws for Routed Language Models</i>, measured how loss depends on both knobs. (Loss is the error score from Chapter 4: lower is better. Chapter 6 covers scaling laws.)',
         'It tested models with hundreds of experts and hundreds of billions of total parameters. The loss table in Figure 9.2 is <b>invented</b> for teaching. It is not from the paper and not a measured result.'),
       fig(1, '9.2', 'Loss at each size and expert count', 'Each cell is a loss. Darker green is better. These numbers are invented to show a pattern. They are not results from the paper.'),
       box('example', 'Worked example 9.2  ·  Reading the table', P('You only need to subtract. Use the invented loss table in Figure 9.2. Find how much going from 1 expert to 64 experts saves at each active size.'),
@@ -72,7 +73,7 @@
       prose('A strong result can be stretched too far. The paper does not show that more experts always improve every kind of intelligence. It measured loss on text the model had not trained on.',
         'It tested three routing methods. The same kind of formula fitted all three, but each method got different constants. It did not test every possible design.'),
       prose('It does not say total parameters are irrelevant. They set memory and serving costs.',
-        'It trained every model on the same amount of data, about 130 billion tokens according to the course source notes. The best amount of data for a given budget was left open. And it is a 2022 paper, so its numbers are not automatic predictions for today’s models.'),
+        'It trained every model on the same amount of data, about 130 billion tokens of text. The best amount of data for a given budget was left open. And it is a 2022 paper, so its numbers are not automatic predictions for today’s models.'),
       box('key', 'Key idea', P('Treat the result as a method for forecasting, not as a final answer for any model.'))]],
     ['9.7', 'Chapter summary and practice', [
       tab(['Word', 'Plain meaning'], [{ cells: ['Mixture of experts', 'Many experts, only a few used per token'] }, { cells: ['Router', 'Picks which experts see each token'] }, { cells: ['Total parameters', 'Everything stored in the model'] }, { cells: ['Active parameters', 'What one token actually uses'] }, { cells: ['Effective parameters', 'Size of the dense model that reaches the same loss (a comparison, not a count)'] }]),
@@ -82,7 +83,8 @@
         h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> A model has 2B shared parameters and 16 experts of 3B each. The router picks 2. Find the total and active parameters.' }), ans(`Total counts every expert: 2 + 16 × 3 = 50B. Active counts the shared part plus only the 2 chosen experts: 2 + 2 × 3 = 8B.`)),
         h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span> At 2 bytes per parameter, how much memory does a 50B model need?' }), ans('Each billion parameters takes 2 GB, so 50 × 2 GB = 100 GB. All 50B must be stored, even if only 8B are active, as in exercise 1.')),
         h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">3.</span> In Figure 9.2, which saves more by going from 1 to 64 experts: the 4B row or the 16B row?' }), ans(`The 4B row, ${f(LOSS[1][0] - LOSS[1][2], 2)} against ${f(LOSS[2][0] - LOSS[2][2], 2)}. In this invented table, experts help less as the active size grows.`)),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">4.</span> Why does a model with many experts still need a lot of memory?' }), ans('Memory depends on total parameters, not active ones. The router may pick any expert for the next token, so all of them must be ready.')))]]
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">4.</span> Why does a model with many experts still need a lot of memory?' }), ans('Memory depends on total parameters, not active ones. The router may pick any expert for the next token, so all of them must be ready.'))),
+      prose('You can now follow a model from text to tokens, through attention and blocks, to loss, probabilities and decoding, and then out to scale, prompts, tuning and routing. Every large model you hear about is a variation on these same parts. The interviews and papers cited in this course are the best next step.')]]
   ];
 
   Book.render({ n: 9, secs, crumb: 'Chapter 9  ·  Mixture of experts', kicker: 'Chapter 9  ·  Going further', title: 'Mixture of experts',
