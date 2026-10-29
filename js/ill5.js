@@ -5,7 +5,7 @@
   const CAND = [['mat', 3.1], ['floor', 2.2], ['sofa', 1.4], ['rug', 1.0], ['chair', 0.6], ['moon', -0.5], ['the', -1.2], ['banana', -2.0]];
   const Z = CAND.map(c => c[1]), E = Z.map(Math.exp), SUM = E.reduce((a, b) => a + b, 0), PR = E.map(v => v / SUM);
   const COL = [C.blue, C.cyan, C.yellow, C.pink, C.green, C.orange, '#8e8e93', '#636366'];
-  const pct = (p, d = 0) => (p * 100).toFixed(d) + '%';
+  const pct = (p, d = 1) => (p * 100).toFixed(d) + '%';
   const grp = (g, d) => { const e = S('g'); g.append(e); return rise(e, d); };
 
   function ill1(g) {
@@ -53,7 +53,7 @@
       T(e, w, 182, y + 20, { size: 21, weight: 600 });
       T(e, E[i].toFixed(1) + ' ÷ ' + SUM.toFixed(1), 420, y + 20, { size: 19, mono: true, fill: C.mute });
       R(e, 640, y + 2, PR[i] * 640, 20, { r: 6, fill: COL[i] });
-      T(e, pct(PR[i], PR[i] < .1 ? 1 : 0), 640 + PR[i] * 640 + 12, y + 20, { size: 20, mono: true, weight: 600 });
+      T(e, pct(PR[i]), 640 + PR[i] * 640 + 12, y + 20, { size: 20, mono: true, weight: 600 });
     });
   }
 
@@ -109,7 +109,7 @@
     const kept = PR.slice(0, keep), ks = kept.reduce((a, b) => a + b, 0), r = grp(g, 1.5);
     R(r, 880, 150, 250, 290, { r: 22, fill: C.panel, stroke: C.line });
     T(r, 'After the cut', 902, 196, { size: 24, weight: 700 });
-    [['Kept', keep + ' tokens'], ['Mass kept', pct(ks)], ['Rescaled:', ''], ['mat', pct(kept[0] / ks)], ['floor', pct(kept[1] / ks)]].forEach(([a, b], i) => { T(r, a, 902, 244 + i * 38, { size: 20, fill: C.mute }); T(r, b, 1108, 244 + i * 38, { size: 20, mono: true, anchor: 'end', weight: 600 }); });
+    [['Kept', keep + ' tokens'], ['Chance kept', pct(ks)], ['Rescaled:', ''], ['mat', pct(kept[0] / ks)], ['floor', pct(kept[1] / ks)]].forEach(([a, b], i) => { T(r, a, 902, 244 + i * 38, { size: 20, fill: C.mute }); T(r, b, 1108, 244 + i * 38, { size: 20, mono: true, anchor: 'end', weight: 600 }); });
   }
 
   const stages = [

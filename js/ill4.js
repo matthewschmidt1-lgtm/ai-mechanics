@@ -18,22 +18,22 @@
     });
   }
   function ill1(g) {
-    label(g, 'THE TRUE NEXT WORD IN THE TRAINING TEXT IS  “mat”', 600, 70);
+    label(g, 'THE TRUE NEXT TOKEN IN THE TRAINING TEXT IS  “mat”', 600, 70);
     panel(g, 70, 'Before training', BEFORE, .1, 1);
-    panel(g, 650, 'After training', AFTER, .9);
+    panel(g, 650, 'After training', AFTER, .9, 1);
     const a = grp(g, 1.8); P(a, 'M560 306 H640 M628 294 L640 306 L628 318', { stroke: C.mute, sw: 3 });
-    rise(T(g, 'Training moves chance toward the true word.', 600, 568, { size: 26, fill: C.mute, anchor: 'middle' }), 2.2);
+    rise(T(g, 'Training moves chance toward the true token.', 600, 568, { size: 26, fill: C.mute, anchor: 'middle' }), 2.2);
   }
 
   /* loss = -ln(p) */
   function ill2(g) {
     const X = (p) => 150 + 900 * p, Y = (l) => 470 - l * 72, ln = (p) => -Math.log(p);
-    label(g, 'LOSS  =  −ln( chance given to the true word )', 600, 66);
+    label(g, 'LOSS  =  −ln( chance given to the true token )', 600, 66);
     const ax = grp(g, .05);
     L(ax, 150, 470, 1060, 470, { stroke: C.dim }); L(ax, 150, 100, 150, 470, { stroke: C.dim });
     [0, .25, .5, .75, 1].forEach(p => T(ax, (p * 100) + '%', X(p), 500, { size: 18, mono: true, fill: C.dim, anchor: 'middle' }));
     [0, 1, 2, 3, 4, 5].forEach(l => T(ax, String(l), 130, Y(l) + 6, { size: 18, mono: true, fill: C.dim, anchor: 'end' }));
-    T(ax, 'chance given to the true word', 605, 538, { size: 20, fill: C.mute, anchor: 'middle' });
+    T(ax, 'chance given to the true token', 605, 538, { size: 20, fill: C.mute, anchor: 'middle' });
     T(ax, 'loss', 100, 90, { size: 20, fill: C.mute });
     let d = ''; for (let p = 0.0067; p <= 1.0001; p += 0.004) d += (d ? 'L' : 'M') + X(p).toFixed(1) + ' ' + Y(ln(Math.min(p, 1))).toFixed(1);
     rise(P(g, d, { stroke: C.blue, sw: 5 }), .3);
@@ -82,7 +82,7 @@
   /* the training loop */
   function ill5(g) {
     label(g, 'ONE TRIP AROUND THE LOOP CHANGES EVERY DIAL A TINY AMOUNT', 600, 70);
-    const items = [['1', 'Predict', 'Let the model guess the next word.', C.blue], ['2', 'Measure', 'Compute the loss.', C.yellow], ['3', 'Find slopes', 'Work out how each dial affected the loss.', C.pink], ['4', 'Nudge', 'Turn every dial a little downhill.', C.green]];
+    const items = [['1', 'Predict', 'Let the model guess the next token.', C.blue], ['2', 'Measure', 'Compute the loss.', C.yellow], ['3', 'Find slopes', 'Work out how each dial affected the loss.', C.pink], ['4', 'Nudge', 'Turn every dial a little downhill.', C.green]];
     const w = 236, gap = 42, x0 = (1200 - (4 * w + 3 * gap)) / 2, y0 = 150, h = 190;
     items.forEach(([n, t, d, col], i) => {
       const x = x0 + i * (w + gap), e = grp(g, .15 + i * .45);

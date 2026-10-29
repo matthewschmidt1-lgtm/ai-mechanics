@@ -34,16 +34,16 @@
         R(c, x0 + j * cw + 4, y0 + i * ch + 4, cw - 8, ch - 8, { r: 14, fill: C.green, }).setAttribute('fill-opacity', .12 + k * .7); T(c, v.toFixed(2), x0 + j * cw + cw / 2, y0 + i * ch + ch / 2 + 11, { size: 34, mono: true, weight: 700, anchor: 'middle' }); });
       const gain = LOSS[i][0] - LOSS[i][2], b = grp(g, 1.6 + i * .2); T(b, `experts save ${gain.toFixed(2)}`, x0 + 3 * cw + 24, y0 + i * ch + ch / 2 + 9, { size: 24, weight: 700, fill: C.yellow });
     });
-    rise(T(g, 'Lower is better. The benefit of experts shrinks as the active size grows.', 600, 568, { size: 24, fill: C.mute, anchor: 'middle' }), 2.4);
+    rise(T(g, 'Lower is better. In this table, experts help less as the active size grows.', 600, 568, { size: 24, fill: C.mute, anchor: 'middle' }), 2.4);
   }
 
   function ill3(g) {
     label(g, 'STORED VERSUS USED  (INVENTED MODEL: 41B TOTAL, 11B ACTIVE)', 600, 66);
-    const bars = [['Stored in memory', 41, '82 GB', C.orange, 150, 'every expert must be ready'], ['Used for one token', 11, '22 GB', C.green, 340, 'only the chosen experts compute']];
+    const bars = [['Stored in memory', 41, '82 GB', C.orange, 150, 'every expert must be ready'], ['Used for one token', 11, '22 GB', C.green, 340, 'only the shared parts and chosen experts compute']];
     bars.forEach(([t, n, gb, col, y, d], i) => { const e = grp(g, .2 + i * .6), w = n / 41 * 800;
       T(e, t, 150, y - 18, { size: 26, weight: 700, fill: col }); R(e, 150, y, w, 70, { r: 14, fill: col }); T(e, `${n}B`, 170, y + 46, { size: 30, weight: 800, fill: '#000' });
       T(e, gb, 150 + w + 20, y + 46, { size: 32, mono: true, weight: 800 }); T(e, d, 150, y + 108, { size: 21, fill: C.mute }); });
-    rise(T(g, 'Saving arithmetic does not save memory.', 600, 556, { size: 26, fill: C.mute, anchor: 'middle' }), 1.8);
+    rise(T(g, 'Fewer calculations per token do not mean less memory.', 600, 556, { size: 26, fill: C.mute, anchor: 'middle' }), 1.8);
   }
   window.__STAGES7 = [{ ill: ill1 }, { ill: ill2 }, { ill: ill3 }];
   window.__MOE = { NS, ES, LOSS };

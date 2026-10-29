@@ -45,7 +45,7 @@
     const f3 = grp(g, 2.1); arrow(f3, 992, y, 1030, y);
     const b1 = grp(g, 1.0); P(b1, `M115 ${y - 50} V 170 H 590 V ${y - 34}`, { stroke: C.cyan, sw: 3 }); b1.append(S('polygon', { points: '0,0 -12,-6.5 -12,6.5', fill: C.cyan, transform: `translate(590,${y - 33}) rotate(90)` })); T(b1, 'the original is kept', 350, 150, { size: 22, weight: 600, fill: C.cyan, anchor: 'middle' });
     const b2 = grp(g, 1.9); P(b2, `M590 ${y + 36} V 470 H 960 V ${y + 34}`, { stroke: C.cyan, sw: 3 }); b2.append(S('polygon', { points: '0,0 -12,-6.5 -12,6.5', fill: C.cyan, transform: `translate(960,${y + 33}) rotate(-90)` })); T(b2, 'and carried forward again', 775, 506, { size: 22, weight: 600, fill: C.cyan, anchor: 'middle' });
-    rise(T(g, 'Each step adds a small correction. Nothing is overwritten.', 600, 570, { size: 24, fill: C.mute, anchor: 'middle' }), 2.4);
+    rise(T(g, 'Each step adds a small correction. The original is kept.', 600, 570, { size: 24, fill: C.mute, anchor: 'middle' }), 2.4);
   }
 
   function ill4(g) {
@@ -57,7 +57,7 @@
     const a = grp(g, 1.8); arrow(a, 520, 310, 650, 310); T(a, 'repeat N times', 590, 288, { size: 19, weight: 700, fill: C.blue, anchor: 'middle' });
     ['Block 1', 'Block 2', '⋮', 'Block N'].forEach((t, i) => { const e = grp(g, 2.0 + i * .3), y = 130 + i * 92; if (t !== '⋮') { R(e, 670, y, 280, 72, { r: 16, fill: C.panel, stroke: C.blue, sw: 2.5 }); T(e, t, 810, y + 46, { size: 26, weight: 600, anchor: 'middle' }); } else T(e, t, 810, y + 46, { size: 34, fill: C.mute, anchor: 'middle' }); });
     const o = grp(g, 3.3); arrow(o, 960, 440, 1060, 440); T(o, 'scores', 1080, 448, { size: 24, weight: 700 });
-    rise(T(g, 'Same design every time. Each block has its own learned weights.', 600, 570, { size: 24, fill: C.mute, anchor: 'middle' }), 3.4);
+    rise(T(g, 'Same design every time. Each block has its own learned parameters.', 600, 570, { size: 24, fill: C.mute, anchor: 'middle' }), 3.4);
   }
   window.__STAGES5 = [{ ill: ill1 }, { ill: ill2 }, { ill: ill3 }, { ill: ill4 }];
 })();

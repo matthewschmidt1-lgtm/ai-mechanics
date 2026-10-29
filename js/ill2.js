@@ -42,7 +42,7 @@
       const y = 160 + i * 86, e = grp(g, .3 + i * .35);
       T(e, n, 150, y + 40, { size: 30, weight: 600 }); T(e, sc[i].toFixed(2), 400, y + 40, { size: 28, mono: true, anchor: 'middle', fill: sc[i] < 0 ? C.pink : C.ink });
       R(e, 520, y + 12, 240, 36, { r: 8, fill: C.panel2 }); R(e, 520, y + 12, Math.max(4, wt[i] * 240), 36, { r: 8, fill: i === 0 ? C.yellow : C.blue });
-      T(e, (wt[i] * 100).toFixed(wt[i] < .1 ? 1 : 0) + '%', 780, y + 40, { size: 24, mono: true, weight: 700 });
+      T(e, (wt[i] * 100).toFixed(1) + '%', 780, y + 40, { size: 24, mono: true, weight: 700 });
       T(e, `(${V[i][0]}, ${V[i][1]})`, 960, y + 40, { size: 28, mono: true, anchor: 'middle' });
     });
     const o = grp(g, 1.7); L(o, 140, 440, 1060, 440, { stroke: C.dim, sw: 2 });

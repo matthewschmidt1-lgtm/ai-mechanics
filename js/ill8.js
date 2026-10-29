@@ -47,7 +47,7 @@
       R(e, x, 150, w, 120, { r: 18, fill: col + '22', stroke: col, sw: 3 }); T(e, 'try ' + (i + 1), x + w / 2, 192, { size: 20, fill: C.mute, anchor: 'middle', weight: 600 }); T(e, r ? 'right' : 'wrong', x + w / 2, 242, { size: 28, weight: 800, fill: col, anchor: 'middle' });
       const a = grp(g, 2.0 + i * .08); T(a, (r - mean >= 0 ? '+' : '−') + Math.abs(r - mean).toFixed(3), x + w / 2, 330, { size: 28, mono: true, weight: 800, anchor: 'middle', fill: col }); });
     const l = grp(g, 1.8); T(l, 'how far each attempt is from the average reward', 600, 372, { size: 20, fill: C.mute, anchor: 'middle' });
-    const m = grp(g, 2.8); T(m, `3 of 8 right, so the average reward is ${mean}`, 600, 432, { size: 28, weight: 700, anchor: 'middle' }); T(m, 'Right attempts are pushed up. Wrong attempts are pushed down.', 600, 476, { size: 24, fill: C.mute, anchor: 'middle' });
+    const m = grp(g, 2.8); T(m, `3 of 8 right, so the average reward is ${mean}`, 600, 432, { size: 28, weight: 700, anchor: 'middle' }); T(m, 'Right attempts become more likely. Wrong attempts become less likely.', 600, 476, { size: 24, fill: C.mute, anchor: 'middle' });
     rise(T(g, 'The whole attempt shares one verdict, however many steps it took.', 600, 548, { size: 24, fill: C.mute, anchor: 'middle' }), 3.2);
   }
   window.__STAGES9 = [{ ill: ill1 }, { ill: ill2 }, { ill: ill3 }, { ill: ill4 }];

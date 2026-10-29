@@ -39,7 +39,7 @@
     L(g, 600, 215, 270, 375, { stroke: C.dim, sw: 3 }); L(g, 600, 215, 930, 375, { stroke: C.dim, sw: 3 }); L(g, 420, 435, 780, 435, { stroke: C.dim, sw: 3 });
     box(450, 105, 300, 'Model size N', 'parameters', C.blue, .1); box(100, 375, 320, 'Data D', 'training tokens', C.yellow, .5); box(780, 375, 320, 'Compute C', 'total arithmetic', C.green, .9);
     const e = grp(g, 1.5); T(e, 'C ≈ 6 × N × D', 600, 330, { size: 42, mono: true, weight: 800, anchor: 'middle', fill: C.green });
-    rise(T(g, 'For a fixed budget, grow N and D together: about 20 tokens per parameter.', 600, 566, { size: 24, fill: C.mute, anchor: 'middle' }), 2.2);
+    rise(T(g, 'Rule of thumb: grow N and D together, about 20 tokens per parameter.', 600, 566, { size: 24, fill: C.mute, anchor: 'middle' }), 2.2);
   }
   window.__STAGES6 = [{ ill: ill1 }, { ill: ill2 }, { ill: ill3 }];
   window.__SCALE = { FLOOR, A, ALPHA, loss };

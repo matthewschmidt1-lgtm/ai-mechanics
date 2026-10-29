@@ -29,7 +29,7 @@
     const a = grp(g, 1.2); P(a, `M${cx[4]} ${cy - 44} C ${cx[4]} 170, ${cx[0]} 170, ${cx[0]} ${cy - 44}`, { stroke: C.cyan, sw: 4 }); T(a, '1. Find the earlier  “blue”', (cx[0] + cx[4]) / 2, 198, { size: 24, weight: 700, fill: C.cyan, anchor: 'middle' }); a.append(S('polygon', { points: '0,0 -12,-6.5 -12,6.5', fill: C.cyan, transform: `translate(${cx[0]},${cy - 42}) rotate(90)` }));
     const b = grp(g, 2.0); P(b, `M${cx[0] + 20} ${cy - 44} C ${cx[0] + 40} 250, ${cx[1] - 20} 250, ${cx[1]} ${cy - 44}`, { stroke: C.yellow, sw: 4 }); b.append(S('polygon', { points: '0,0 -12,-6.5 -12,6.5', fill: C.yellow, transform: `translate(${cx[1]},${cy - 42}) rotate(90)` })); T(b, '2. See what came next', cx[1] + 70, 268, { size: 22, weight: 700, fill: C.yellow, anchor: 'start' });
     const c = grp(g, 2.8); P(c, `M${cx[1] + 30} ${cy + 96} C ${cx[1] + 30} 520, ${cx[5]} 520, ${cx[5]} ${cy + 46}`, { stroke: C.green, sw: 4 }); T(c, '3. Copy it', (cx[1] + cx[5]) / 2, 545, { size: 24, weight: 700, fill: C.green, anchor: 'middle' }); c.append(S('polygon', { points: '0,0 -12,-6.5 -12,6.5', fill: C.green, transform: `translate(${cx[5]},${cy + 44}) rotate(-90)` }));
-    rise(T(g, 'Researchers call the attention heads that do this induction heads.', 600, 590, { size: 20, fill: C.mute, anchor: 'middle' }), 3.3);
+    rise(T(g, 'Researchers call attention heads that behave this way induction heads.', 600, 590, { size: 20, fill: C.mute, anchor: 'middle' }), 3.3);
   }
 
   /* 8.3: working memory versus weights */
