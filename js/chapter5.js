@@ -36,7 +36,7 @@
     ['5.2', 'From scores to chances', [
       prose('Softmax has two steps. Step one makes every score positive. Step two divides by the total so the results add up to 1.',
         'You can do every step with a calculator. The symbol Σ just means “add them all up”.'),
-      box('def', 'Definition', P(`${T('Softmax')}: apply <code>exp</code> to each score, then divide by the total.`), eq('p<sub>i</sub> = exp(z<sub>i</sub>) / Σ<sub>j</sub> exp(z<sub>j</sub>)')),
+      box('def', 'Definition', P(`${T('Softmax')}: apply <code>exp</code> to each score, then divide by the total.`), eq('p<sub>i</sub> = <span class="frac"><span class="num">e<sup>z<sub>i</sub></sup></span><span class="den">Σ<sub>j</sub> e<sup>z<sub>j</sub></sup></span></span>')),
       prose('<code>exp(z)</code> means <i>e</i> raised to the power <i>z</i>, where <i>e</i> is about 2.7. It has three useful properties. It is always positive. A bigger score gives a bigger result. And each extra point of score multiplies the result by about 2.7.'),
       fig(1, '5.2', 'Step one: exp', 'Every result is positive. A lead of 0.9 in score becomes about 2.5 times.'),
       fig(2, '5.3', 'Step two: divide by the total', 'The whole bar is the total (100%). Each token’s slice is its share.'),
@@ -49,7 +49,7 @@
         h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span> Can a token ever get a chance of exactly 0?' }), ans('Not in the maths. Every exp is positive, so every token keeps a small chance. (A computer may round a tiny chance to 0.)')))]],
     ['5.3', 'Temperature', [
       prose('Plain softmax gives the model’s own preferences. Sometimes we want it more careful, sometimes more adventurous. The control is <b>temperature</b>, T: divide every score by T before applying softmax.'),
-      box('def', 'Definition', P(`${T('Temperature')} (T) is a positive number. Divide every score by T, then apply softmax.`), eq('p<sub>i</sub> = exp(z<sub>i</sub> / T) / Σ<sub>j</sub> exp(z<sub>j</sub> / T)'), P('T = 1: no change. T below 1: the favorite pulls further ahead (more predictable). T above 1: chances even out (more surprising).')),
+      box('def', 'Definition', P(`${T('Temperature')} (T) is a positive number. Divide every score by T, then apply softmax.`), eq('p<sub>i</sub> = <span class="frac"><span class="num">e<sup>z<sub>i</sub> / T</sup></span><span class="den">Σ<sub>j</sub> e<sup>z<sub>j</sub> / T</sup></span></span>'), P('T = 1: no change. T below 1: the favorite pulls further ahead (more predictable). T above 1: chances even out (more surprising).')),
       tempWidget(),
       fig(3, '5.4', 'Three temperatures', 'The eight word scores at T = 0.5, 1 and 2. Lower temperature piles chance onto the leader; higher spreads it out.'),
       box('analogy', 'Analogy', P('A cold model is careful: it keeps choosing its favorite word. A hot model is adventurous: it tries more words.')),

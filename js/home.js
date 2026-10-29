@@ -18,7 +18,7 @@
     h('header', { class: 'top' }, h('a', { class: 'brand', href: 'index.html' }, h('span', { class: 'logo' }, SITE.short), SITE.name), h('span', { class: 'crumb' }, 'The course'), themeBtn),
     h('section', { class: 'home-hero' }, h('div', { class: 'in' }, h('div', { class: 'kicker' }, 'A course in nine chapters'), h('h1', {}, 'How large language models work.'),
       h('p', { class: 'sub' }, 'From one sentence to a working assistant. Plain words, small numbers you can check by hand, and pictures for every idea.'),
-      h('div', { class: 'row' }, h('a', { class: 'btn primary', href: next.file }, finished ? 'Review from the start' : started ? `Continue: Chapter ${next.n}` : 'Start with Chapter 1'), h('span', { class: 'hint', style: { color: 'var(--muted)' } }, `${CH.length} chapters  ·  about ${Math.round(total / 60)} hours  ·  no maths beyond adding and multiplying`)))),
+      h('div', { class: 'row' }, h('a', { class: 'btn primary', href: next.file }, finished ? 'Review from the start' : started ? `Continue: Chapter ${next.n}` : 'Start with Chapter 1'), h('span', { class: 'hint', style: { color: 'var(--muted)' } }, `${CH.length} chapters  ·  about ${Math.round(total / 60)} hours  ·  no maths beyond basic arithmetic`)))),
     h('main', { class: 'home-main' }, parts, h('div', { class: 'foot' }, 'Examples and numbers are illustrative.')));
   document.title = `${SITE.name}: The course`;
   document.getElementById('app').replaceChildren(root);

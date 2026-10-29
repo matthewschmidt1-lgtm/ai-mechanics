@@ -8,7 +8,7 @@ window.PARTS = [
   { id: 'further', name: 'Going further', blurb: 'An optional deep dive.' }
 ];
 window.CHAPTERS = [
-  { n: 1, file: 'chapter1.html', part: 0, minutes: 25, title: 'The full pipeline', blurb: 'Follow one sentence from text to next word in seven stages.', needs: 'Adding and multiplying.' },
+  { n: 1, file: 'chapter1.html', part: 0, minutes: 25, title: 'The full pipeline', blurb: 'Follow one sentence from text to next token in seven stages.', needs: 'Basic arithmetic.' },
   { n: 2, file: 'chapter2.html', part: 1, minutes: 25, title: 'Attention', blurb: 'How each word borrows context from the words before it.', needs: 'Chapter 1.' },
   { n: 3, file: 'chapter3.html', part: 1, minutes: 25, title: 'The transformer block', blurb: 'Heads, a private thinking step and corrections, stacked into the unit a model repeats.', needs: 'Chapter 2.' },
   { n: 4, file: 'chapter4.html', part: 1, minutes: 25, title: 'Loss and gradient descent', blurb: 'How a model measures its mistakes and sets its billions of numbers.', needs: 'Chapters 1 to 3.' },

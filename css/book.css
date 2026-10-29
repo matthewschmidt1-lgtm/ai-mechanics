@@ -288,3 +288,9 @@ a.cc .m .ok{color:var(--good);font-weight:700}
 
 /* phones: let figures run edge to edge, including the right side */
 @media (max-width:620px){figure{max-width:none;width:calc(100% + 36px)}}
+
+/* typeset fractions in formulas */
+.eq .frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .2em}
+.eq .frac .num{border-bottom:1.5px solid currentColor;padding:0 .35em .2em}
+.eq .frac .den{padding:.2em .35em 0}
+.eq{white-space:nowrap;line-height:1.6}
