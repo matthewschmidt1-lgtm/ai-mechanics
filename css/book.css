@@ -344,9 +344,6 @@ table.calc.text td:first-child{white-space:nowrap;font-weight:600}
 :root[data-motion=reduce] *,:root[data-motion=reduce] *::before,:root[data-motion=reduce] *::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
 :root[data-motion=reduce] .rise{opacity:1}
 
-/* ---- the footer number cruncher ---- */
-.foot{display:flex;flex-direction:column;align-items:center;gap:.9rem}
-.foot p{margin:0}
 .a11y-panel{width:min(23rem,calc(100vw - 24px))}
 .a11y-row{flex-wrap:wrap}
 .a11y-seg button{padding:0 .75rem}
