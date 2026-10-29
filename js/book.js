@@ -51,7 +51,7 @@
     const root = h('div', {},
       h('header', { class: 'top' }, h('a', { class: 'brand', href: 'index.html' }, h('span', { class: 'logo' }, SITE.short), SITE.name), menu, h('span', { class: 'crumb' }, cfg.crumb), window.Prefs ? Prefs.button() : themeBtn, pbar),
       h('section', { class: 'chapter-hero' }, h('div', { class: 'in' }, h('div', { class: 'kicker' }, cfg.kicker), h('h1', {}, cfg.title), h('p', { class: 'sub' }, cfg.sub), h('div', { class: 'meta', html: cfg.meta }))),
-      h('div', { class: 'layout' }, toc, h('div', {}, article, nav, h('div', { class: 'foot' }, window.Prefs ? Prefs.cruncher() : null, h('p', {}, 'Examples and numbers are illustrative.')))));
+      h('div', { class: 'layout' }, toc, h('div', {}, article, nav, h('div', { class: 'foot' }, h('p', {}, 'Examples and numbers are illustrative.')))));
     document.getElementById('app').replaceChildren(root);
     const hdr = root.querySelector('.top'), setH = () => document.documentElement.style.setProperty('--hdr', hdr.offsetHeight + 'px'); setH(); addEventListener('resize', setH); document.addEventListener('prefschange', () => setTimeout(setH, 60));
     root.querySelectorAll('table.calc').forEach(t => { const r0 = t.querySelector('tr'); if (r0 && r0.children.length === 2 && [...t.querySelectorAll('td:last-child')].some(c => /[A-Za-z]{4,}/.test(c.textContent))) t.classList.add('text'); });

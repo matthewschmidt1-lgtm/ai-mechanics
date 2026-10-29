@@ -343,20 +343,10 @@ table.calc.text td:first-child{white-space:nowrap;font-weight:600}
 /* ---- reduce motion (the reader's choice, on top of the system setting) ---- */
 :root[data-motion=reduce] *,:root[data-motion=reduce] *::before,:root[data-motion=reduce] *::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
 :root[data-motion=reduce] .rise{opacity:1}
-:root[data-motion=reduce] .cruncher .strip{animation:none}
 
 /* ---- the footer number cruncher ---- */
 .foot{display:flex;flex-direction:column;align-items:center;gap:.9rem}
 .foot p{margin:0}
-.cruncher{display:inline-flex;align-items:center;gap:.7rem;padding:.55rem 1rem;border:1px solid var(--line);border-radius:16px;background:var(--panel);font-family:var(--mono);font-size:1.15rem;color:var(--ink)}
-.cr-sigma{color:var(--brand);font-weight:700;font-size:1.3em;line-height:1}
-.cr-eq{color:var(--muted)}
-.cr-wheels{display:inline-flex;gap:.18rem;padding:.2rem .45rem;border-radius:9px;background:var(--panel2)}
-.cruncher .wheel{display:block;height:1.3em;line-height:1.3em;overflow:hidden;width:.72em;text-align:center;font-weight:700}
-.cruncher .strip{display:flex;flex-direction:column;animation:crunch var(--d,1.4s) steps(10,end) infinite}
-.cruncher .strip span{display:block;height:1.3em}
-@keyframes crunch{to{transform:translateY(-13em)}}
-@media (prefers-reduced-motion: reduce){.cruncher .strip{animation:none}}
 .a11y-panel{width:min(23rem,calc(100vw - 24px))}
 .a11y-row{flex-wrap:wrap}
 .a11y-seg button{padding:0 .75rem}

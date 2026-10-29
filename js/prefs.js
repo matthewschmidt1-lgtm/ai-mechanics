@@ -48,10 +48,5 @@
     document.addEventListener('prefschange', sync); sync(); return wrap;
   }
 
-  /* a small number cruncher for the page footer: digit wheels that keep rolling */
-  function cruncher() {
-    const wheel = (d) => { const digits = []; for (let i = 0; i < 11; i++) digits.push(el('span', {}, String(i % 10))); return el('span', { class: 'wheel', style: `--d:${d}s` }, el('span', { class: 'strip' }, digits)); };
-    return el('div', { class: 'cruncher', role: 'img', 'aria-label': 'An animated number cruncher' }, el('span', { class: 'cr-sigma', 'aria-hidden': 'true' }, 'Σ'), el('span', { class: 'cr-wheels', 'aria-hidden': 'true' }, [0.9, 1.3, 1.9, 2.7, 3.7].map(wheel)), el('span', { class: 'cr-eq', 'aria-hidden': 'true' }, '='));
-  }
-  window.Prefs = { get: () => Object.assign({}, st), set, button, cruncher, SIZES };
+  window.Prefs = { get: () => Object.assign({}, st), set, button, SIZES };
 })();

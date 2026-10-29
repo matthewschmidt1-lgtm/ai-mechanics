@@ -19,7 +19,7 @@
     h('section', { class: 'home-hero' }, h('div', { class: 'in' }, h('div', { class: 'kicker' }, 'A course in nine chapters'), h('h1', {}, 'How large language models work.'),
       h('p', { class: 'sub' }, 'From one sentence to a working assistant. Plain words, small numbers you can check by hand, and pictures for every idea.'),
       h('div', { class: 'row' }, h('a', { class: 'btn primary', href: next.file }, finished ? 'Review from the start' : started ? `Continue: Chapter ${next.n}` : 'Start with Chapter 1'), h('span', { class: 'hint', style: { color: 'var(--muted)' } }, `${CH.length} chapters  ·  about ${Math.round(total / 60)} hours  ·  no math beyond basic arithmetic`)))),
-    h('main', { class: 'home-main' }, parts, h('div', { class: 'foot' }, window.Prefs ? Prefs.cruncher() : null, h('p', {}, 'Examples and numbers are illustrative.'))));
+    h('main', { class: 'home-main' }, parts, h('div', { class: 'foot' }, h('p', {}, 'Examples and numbers are illustrative.'))));
   document.title = `${SITE.name}: The course`;
   document.getElementById('app').replaceChildren(root);
   const hdr = root.querySelector('.top'), setH = () => document.documentElement.style.setProperty('--hdr', hdr.offsetHeight + 'px'); setH(); addEventListener('resize', setH); document.addEventListener('prefschange', () => setTimeout(setH, 60));
