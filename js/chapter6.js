@@ -44,7 +44,7 @@
         tab(['N (billions)', `N^${ALPHA}`, `${A} ÷ N^${ALPHA}`, 'Loss'], ns.map(n => ({ cells: [String(n), f(Math.pow(n, ALPHA), 3), f(A / Math.pow(n, ALPHA), 3), f(loss(n), 2)] }))),
         P(`<b>Answer:</b> ${f(loss(1), 2)}, ${f(loss(10), 2)} and ${f(loss(100), 2)}. Ten times the size cut the loss by ${f(loss(1) - loss(10), 2)}, and the next ten times cut it by only ${f(loss(10) - loss(100), 2)}.`)),
       box('key', 'Key idea', P('Loss is a floor plus a gap, and the gap shrinks as the model grows.')),
-      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>What happens to the loss as the model becomes enormous?' }), ans('It gets closer and closer to the floor, 1.0 here, but never goes below it.')))]],
+      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> What happens to the loss as the model becomes enormous?' }), ans('It gets closer and closer to the floor, 1.0 here, but never goes below it.')))]],
     ['6.3', 'Diminishing returns', [
       prose(`Look at the gap above the floor. Each time you double the size, the gap shrinks to about ${f(Math.pow(2, -ALPHA), 2)} of what it was.`,
         `So each doubling removes only about ${Math.round((1 - Math.pow(2, -ALPHA)) * 100)}% of what is left. (Behind this is 2^−${ALPHA} = 1 ÷ 1.23 ≈ ${f(Math.pow(2, -ALPHA), 2)}. You can skip the algebra.)`),
@@ -66,23 +66,23 @@
         tab(['Quantity', 'Value'], [{ cells: ['N', '70 billion'] }, { cells: ['D = 20 × N', `${f(20 * 70 / 1000, 1)} trillion tokens`] }, { cells: ['C = 6 × N × D', `${sci(6 * 70e9 * 1.4e12)} arithmetic operations`] }]),
         P(`<b>Answer:</b> about 1.4 trillion tokens and 588 × 10^21 operations, written ${sci(6 * 70e9 * 1.4e12)}. Chinchilla itself was a 70-billion-parameter model trained on about 1.4 trillion tokens.`)),
       box('note', 'A rule of thumb, not a law', P('Many recent models read far more than 20 tokens per parameter. For example, Llama 3’s 8-billion-parameter model read about 15 trillion tokens. A smaller model trained longer is cheaper to run afterward.')),
-      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>A 10-billion-parameter model follows the rule of thumb. How many tokens should it read?' }), ans('20 × 10 billion = 200 billion tokens.')))]],
+      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> A 10-billion-parameter model follows the rule of thumb. How many tokens should it read?' }), ans('20 × 10 billion = 200 billion tokens.')))]],
     ['6.5', 'What scaling laws do not tell you', [
       prose('A scaling law is a forecast, and forecasts have limits.',
         'It predicts <b>loss</b>, not intelligence. A lower loss means better next-word prediction, which usually helps, but it is not the same as general ability.'),
       prose('It is <b>empirical</b>. It describes what was measured, not a law of nature. Inside the tested range it fits well. Outside it, the curve may bend.',
         'It also depends on the setup: the data, the architecture and how the model is trained. Change the setup and the numbers change.'),
       box('key', 'Key idea', P('Use a scaling law as a forecast, not a promise.')),
-      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>A scaling law fitted on models up to 10 billion parameters is used to predict a 1-trillion-parameter model. Why be cautious?' }), ans('The prediction is 100 times beyond the measured range. The curve might bend, or the floor might be different.')))]],
+      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> A scaling law fitted on models up to 10 billion parameters is used to predict a 1-trillion-parameter model. Why be cautious?' }), ans('The prediction is 100 times beyond the measured range. The curve might bend, or the floor might be different.')))]],
     ['6.6', 'Chapter summary and practice', [
       tab(['Word', 'Plain meaning'], [{ cells: ['Scaling law', 'A measured rule that predicts loss from resources'] }, { cells: ['Power law', 'Each doubling shrinks the gap by the same fraction'] }, { cells: ['Floor', 'The loss the curve approaches but never crosses'] }, { cells: ['Tokens (D)', 'How much text the model reads in training'] }, { cells: ['Compute (C)', 'Total arithmetic in training, about 6 × N × D'] }]),
       box('key', 'Chapter in one line', P('Loss falls predictably as size grows, with diminishing returns, so researchers forecast the payoff and balance size, data and compute.')),
       prose('Try these before you open the answers.'),
       box('check', 'Exercises',
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>Using floor = 1.0, a = 1.5 and α = 0.3, predict the loss at N = 4 billion.' }), ans(`4^0.3 = ${f(Math.pow(4, .3), 3)}, so 1.5 ÷ ${f(Math.pow(4, .3), 3)} = ${f(1.5 / Math.pow(4, .3), 3)}. Adding the floor gives ${f(loss(4), 2)}.`)),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span>By what factor does one doubling of N multiply the gap above the floor?' }), ans(`2^−0.3 = 1 ÷ 2^0.3 = 1 ÷ ${f(Math.pow(2, .3), 3)}, about ${f(Math.pow(2, -.3), 2)}.`)),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">3.</span>A 30-billion-parameter model follows the rule of thumb. How many tokens, and how much compute?' }), ans(`Tokens: 20 × 30 billion = 600 billion. Compute: 6 × 30 billion × 600 billion = ${sci(6 * 30e9 * 600e9)} operations.`)),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">4.</span>Why can loss never reach zero in this scaling law?' }), ans('The curve approaches the floor. The gap shrinks toward zero, but the floor stays.')))]]
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> Using floor = 1.0, a = 1.5 and α = 0.3, predict the loss at N = 4 billion.' }), ans(`4^0.3 = ${f(Math.pow(4, .3), 3)}, so 1.5 ÷ ${f(Math.pow(4, .3), 3)} = ${f(1.5 / Math.pow(4, .3), 3)}. Adding the floor gives ${f(loss(4), 2)}.`)),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span> By what factor does one doubling of N multiply the gap above the floor?' }), ans(`2^−0.3 = 1 ÷ 2^0.3 = 1 ÷ ${f(Math.pow(2, .3), 3)}, about ${f(Math.pow(2, -.3), 2)}.`)),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">3.</span> A 30-billion-parameter model follows the rule of thumb. How many tokens, and how much compute?' }), ans(`Tokens: 20 × 30 billion = 600 billion. Compute: 6 × 30 billion × 600 billion = ${sci(6 * 30e9 * 600e9)} operations.`)),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">4.</span> Why can loss never reach zero in this scaling law?' }), ans('The curve approaches the floor. The gap shrinks toward zero, but the floor stays.')))]]
   ];
 
   Book.render({ n: 6, secs, crumb: 'Chapter 6  ·  Scaling laws', kicker: 'Chapter 6  ·  Scale', title: 'Scaling laws',

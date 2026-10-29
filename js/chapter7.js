@@ -61,7 +61,7 @@
       box('example', 'Worked example 7.3  ·  How many examples fit?', P('A model has an 8,000-token context window (a toy size; real models hold far more). The instructions, the new question and room for the reply take 300 tokens. Each example takes 40 tokens. How many examples fit? This is one subtraction and one division.'),
         h('ol', { class: 'steps' }, [h('li', { html: 'Space left for examples: 8,000 − 300 = <b>7,700</b> tokens.' }), h('li', { html: 'Divide by the size of one example: 7,700 ÷ 40 = 192.5. Round down, since half an example does not fit.' })]),
         P(`<b>Answer:</b> <b>192</b> examples fit. A 1,000-example prompt needs 40,000 tokens, so it would not fit.`)),
-      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>You want a model to answer questions about a document it was never trained on. Where should the document go?' }), ans('In the prompt, inside the context window. The weights do not contain it, and the model can read the prompt directly.')))]],
+      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> You want a model to answer questions about a document it was never trained on. Where should the document go?' }), ans('In the prompt, inside the context window. The weights do not contain it, and the model can read the prompt directly.')))]],
     ['7.4', 'What it cannot do', [
       prose('In-context learning is powerful, but it has limits.',
         'It is <b>temporary</b>. When the conversation ends, the model remembers nothing. The weights are exactly as they were.'),
@@ -69,7 +69,7 @@
         'It is <b>sensitive</b>. The order and wording of the examples can change the answer. And a long prompt costs more to process.'),
       ref(P(`<b>Karpathy on the Dwarkesh Patel podcast</b> (near the start, and about 21:16 to 24:02). He says today’s assistants cannot learn new things from one conversation. People seem to fold each day into their brain’s weights, perhaps during sleep, and language models have no equivalent step. He floats ideas for fixing this and expects the work to take roughly a decade. ${a(YT, 'Watch')} · ${a(DW, 'Transcript')}`)),
       box('key', 'Key idea', P('The context window is a notepad. The weights are a lifetime of reading. Only training can change the weights.')),
-      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>You teach a model your labeling scheme in one conversation. You start a new conversation. What does it remember?' }), ans('Nothing. The scheme lived only in the earlier prompt, and the weights never changed. (Some apps save notes and paste them into the new prompt, but that is the prompt again.)')))]],
+      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> You teach a model your labeling scheme in one conversation. You start a new conversation. What does it remember?' }), ans('Nothing. The scheme lived only in the earlier prompt, and the weights never changed. (Some apps save notes and paste them into the new prompt, but that is the prompt again.)')))]],
     ['7.5', 'Further listening', [
       prose('This chapter paraphrases two public conversations. Listen to the originals for Karpathy’s exact words and the context around them.'),
       h('table', { class: 'summary-table' }, h('tr', {}, ['Conversation', 'Worth listening for'].map(t => h('th', {}, t))),
@@ -81,10 +81,10 @@
       box('key', 'Chapter in one line', P('A model can learn a task from its prompt, because attention lets it spot patterns in the prompt, but that learning is gone when the prompt is.')),
       prose('Try these before you open the answers.'),
       box('check', 'Exercises',
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>Does in-context learning change the model’s weights?' }), ans('No. Only the prompt changes. The weights stay exactly as they were.')),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span>The text is <code>cat sat dog ran cat</code>. What does the induction rule predict next?' }), ans('<i>sat</i>. The last word, <i>cat</i>, appeared earlier, and <i>sat</i> followed it.')),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">3.</span>A context window holds 4,000 tokens. Instructions, question and reply take 400. Each example takes 50. How many examples fit?' }), ans(`4,000 − 400 = 3,600. Then 3,600 ÷ 50 = ${big(3600 / 50)} examples.`)),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">4.</span>Why can a model not remember what you told it yesterday?' }), ans('What you told it lived in yesterday’s prompt. A new conversation starts with an empty context, and the weights never changed. (Some apps save notes and paste them back in.)')))]]
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> Does in-context learning change the model’s weights?' }), ans('No. Only the prompt changes. The weights stay exactly as they were.')),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span> The text is <code>cat sat dog ran cat</code>. What does the induction rule predict next?' }), ans('<i>sat</i>. The last word, <i>cat</i>, appeared earlier, and <i>sat</i> followed it.')),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">3.</span> A context window holds 4,000 tokens. Instructions, question and reply take 400. Each example takes 50. How many examples fit?' }), ans(`4,000 − 400 = 3,600. Then 3,600 ÷ 50 = ${big(3600 / 50)} examples.`)),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">4.</span> Why can a model not remember what you told it yesterday?' }), ans('What you told it lived in yesterday’s prompt. A new conversation starts with an empty context, and the weights never changed. (Some apps save notes and paste them back in.)')))]]
   ];
 
   Book.render({ n: 7, secs, crumb: 'Chapter 7  ·  In-context learning', kicker: 'Chapter 7  ·  From model to assistant', title: 'In-context learning',

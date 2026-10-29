@@ -82,7 +82,7 @@ details .ans{margin-top:.6rem;padding-top:.6rem;border-top:1px solid color-mix(i
 .q{margin:0 0 1.3rem;padding-bottom:1.1rem;border-bottom:1px solid color-mix(in srgb,var(--ink) 12%,transparent)}
 .q:last-child{border:0;margin:0;padding:0}
 .q .qt{font-family:var(--serif);font-size:1.12rem;line-height:1.5}
-.q .qn{font-family:var(--sans);font-weight:700;margin-right:.4rem}
+.q .qn{font-family:var(--sans);font-weight:700;margin-right:.15rem}
 
 figure{margin:2rem 0;max-width:980px}
 .fig-art{position:relative;background:var(--canvas);border:1px solid #1c1c1e;border-radius:22px;overflow:hidden;aspect-ratio:2/1}

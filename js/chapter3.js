@@ -31,7 +31,7 @@
         h('ol', { class: 'steps' }, [h('li', { html: 'Divide d by H.' }), h('li', { html: 'Check: multiply the answer by H to get d back.' })]),
         tab(['Model', 'd', 'Heads H', 'd ÷ H', 'Check'], [['GPT-2 small', 768, 12], ['Llama 2 7B', 4096, 32], ['GPT-3', 12288, 96]].map(([n, d, hh]) => ({ cells: [n, big(d), String(hh), String(d / hh), `${d / hh} × ${hh} = ${big(d)}`] }))),
         P('<b>Answer:</b> 64, 128 and 128 numbers per head.')),
-      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>A model has d = 1,024 and 16 heads. How many numbers does each head use?' }), ans('1,024 ÷ 16 = 64.')))]],
+      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> A model has d = 1,024 and 16 heads. How many numbers does each head use?' }), ans('1,024 ÷ 16 = 64.')))]],
     ['3.2', 'Thinking alone: the feed-forward step', [
       prose('After attention, each word holds clues from other words. Now each word thinks them over on its own. This is the feed-forward step, sometimes called an MLP.',
         'It makes three moves: expand, filter, shrink.'),
@@ -44,8 +44,8 @@
         tab(['Stage', 'Numbers'], [{ cells: ['Input', vec(x, 0)] }, { cells: ['After expand', vec(z, 0)] }, { cells: ['After filter (ReLU)', vec(hid, 0)] }, { cells: ['After shrink', vec(outv, 1)] }]),
         P(`<b>Answer:</b> the word leaves as <code>${vec(outv, 1)}</code>. Two of the three hidden numbers were negative, so the filter switched them off.`)),
       box('key', 'Key idea', P('Attention moves information between words. The feed-forward step processes it inside each word.')),
-      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>Why does the block need the filter?' }), ans('Without it, the two steps would collapse into a single multiplication.')),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span>Apply ReLU to the list (−3, 0, 2, −1).' }), ans('(0, 0, 2, 0). Negative numbers become 0 and the rest stay the same.')))]],
+      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> Why does the block need the filter?' }), ans('Without it, the two steps would collapse into a single multiplication.')),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span> Apply ReLU to the list (−3, 0, 2, −1).' }), ans('(0, 0, 2, 0). Negative numbers become 0 and the rest stay the same.')))]],
     ['3.3', 'Keeping the original', [
       prose('Attention and the feed-forward step each add something to a word. Neither replaces it. The block adds the change to the original vector.'),
       box('def', 'Definition', P(`A ${T('residual connection')} adds a step’s output to its own input, instead of replacing it.`), eq('new vector = old vector + change')),
@@ -69,16 +69,16 @@
         P(`<b>Answer:</b> about ${f((est[0].layers + est[0].emb) / 1e6, 1)} million and ${f((est[1].layers + est[1].emb) / 1e9, 1)} billion. These are about 0.4% and 0.2% below the published 124 million and 175 billion. The rule skips small extras, such as position information, so a close miss is expected.`)),
       ref(P(`<b>Karpathy on the Lex Fridman Podcast</b> (#333, from about 38:18). He describes the transformer as something like a general-purpose computer (he has called it a general-purpose differentiable computer). It is expressive in the forward pass, it can be optimized by gradient descent, and it runs efficiently on parallel hardware such as GPUs. He notes it has changed little since it was introduced. He suspects better designs exist, but says the trend is to keep the transformer and scale the data. ${a(LEX, 'Listen')} \u00b7 ${a(PS, 'Transcript (third-party)')}`)),
       box('key', 'Key idea', P('A large model is not a new idea. It is the same block, made wider and stacked deeper.')),
-      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>Which holds more of a block’s weights: attention or feed-forward?' }), ans('Feed-forward. In the usual design it holds 8d² of the block’s 12d², which is two thirds.')))]],
+      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> Which holds more of a block’s weights: attention or feed-forward?' }), ans('Feed-forward. In the usual design it holds 8d² of the block’s 12d², which is two thirds.')))]],
     ['3.5', 'Chapter summary and practice', [
       tab(['Word', 'Plain meaning'], [{ cells: ['Attention head', 'One attention step with its own question'] }, { cells: ['Multi-head attention', 'Many heads side by side, results joined'] }, { cells: ['Feed-forward step', 'Each word thinks alone: expand, filter, shrink'] }, { cells: ['Residual connection', 'Add the change to the original'] }, { cells: ['Block', 'Attention plus feed-forward, with residuals'] }]),
       box('key', 'Chapter in one line', P('A transformer is one block, repeated: heads gather clues, each word thinks alone, and every step adds a correction.')),
       prose('Try these before you open the answers.'),
       box('check', 'Exercises',
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>A model has d = 2,048 and 16 heads. How many numbers per head?' }), ans('2,048 ÷ 16 = 128.')),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span>A word is (2, 1) and a step proposes the change (−1, 0.5). What is the word after the residual addition?' }), ans('(2, 1) + (−1, 0.5) = (1, 1.5).')),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">3.</span>A model has 24 blocks and d = 1,024. Estimate the weights in its blocks (12 × blocks × d²).' }), ans(`12 × 24 × 1,024² = ${big(12 * 24 * 1024 * 1024)}, about 302 million.`)),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">4.</span>Why do residual connections help a model with many blocks?' }), ans('Early information is carried forward instead of being overwritten, and each block only has to learn a small correction.')))]]
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> A model has d = 2,048 and 16 heads. How many numbers per head?' }), ans('2,048 ÷ 16 = 128.')),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span> A word is (2, 1) and a step proposes the change (−1, 0.5). What is the word after the residual addition?' }), ans('(2, 1) + (−1, 0.5) = (1, 1.5).')),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">3.</span> A model has 24 blocks and d = 1,024. Estimate the weights in its blocks (12 × blocks × d²).' }), ans(`12 × 24 × 1,024² = ${big(12 * 24 * 1024 * 1024)}, about 302 million.`)),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">4.</span> Why do residual connections help a model with many blocks?' }), ans('Early information is carried forward instead of being overwritten, and each block only has to learn a small correction.')))]]
   ];
 
   Book.render({ n: 3, secs, crumb: 'Chapter 3  ·  The transformer block', kicker: 'Chapter 3  ·  The machine', title: 'The transformer block',

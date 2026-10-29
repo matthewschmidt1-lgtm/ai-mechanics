@@ -41,7 +41,7 @@
         tab(['Kind', 'Calculation', 'Parameters'], [{ cells: ['Total', `${shared} + ${nE} × ${expert}`, total + 'B'] }, { cells: ['Active', `${shared} + ${top} × ${expert}`, active + 'B'], hl: [2] }]),
         P(`<b>Answer:</b> ${total}B total and ${active}B active. The model stores ${f(total / active, 1)} times more than it uses on each token.`)),
       prose('Experts are not tidy topics like “medicine” or “law”. Training decides what each one learns.'),
-      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>Which count sets how much arithmetic one token needs: total or active parameters?' }), ans('Active parameters. Only the chosen experts and the shared parts do any work for that token.')))]],
+      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> Which count sets how much arithmetic one token needs: total or active parameters?' }), ans('Active parameters. Only the chosen experts and the shared parts do any work for that token.')))]],
     ['9.3', 'Two knobs', [
       prose('For a dense model there is one knob: size. A routed model has two. <b>Active size</b> N roughly sets the arithmetic per token. <b>Expert count</b> E sets how much extra capacity is stored.',
         'A 2022 paper, <i>Unified Scaling Laws for Routed Language Models</i>, measured how loss depends on both knobs. Its formula adds up three effects: size, experts, and how the two affect each other.',
@@ -60,7 +60,7 @@
         h('ol', { class: 'steps' }, [h('li', { html: 'Read the dense losses (1 expert): 1B is 2.50, 4B is 2.20, 16B is 1.95.' }), h('li', { html: '2.18 is lower than 2.20 (the 4B model) but higher than 1.95 (the 16B model). So the match lies between 4B and 16B, just past 4B.' })]),
         P(`<b>Answer:</b> 2.18 is just below the dense 4B model’s 2.20. The routed model acts like a dense model of about 4.5B (a rough estimate, read between the table’s rows), while doing the arithmetic of a 1B model.`)),
       box('note', 'A caution', P('Effective parameters describe loss, not every ability. They are not a claim that the two models behave the same on every task.')),
-      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>Is the effective parameter count the number of parameters stored?' }), ans('No. It is a performance comparison: the size of the dense model that matches the routed model’s loss.')))]],
+      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> Is the effective parameter count the number of parameters stored?' }), ans('No. It is a performance comparison: the size of the dense model that matches the routed model’s loss.')))]],
     ['9.5', 'Cheaper to compute, not to store', [
       prose('Experts save arithmetic. They do not save memory. Every expert must sit ready in memory, because the router may choose any of them for the next token.'),
       fig(2, '9.3', 'Stored versus used', 'At 2 bytes per parameter, 41B parameters take 82 GB to store. One token only uses 22 GB worth of them. Invented model.'),
@@ -81,10 +81,10 @@
       box('key', 'Chapter in one line', P('A routed model stores a lot and computes with a little, and a two-variable scaling law predicts how much the extra experts help.')),
       prose('Try these before you open the answers.'),
       box('check', 'Exercises',
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>A model has 2B shared parameters and 16 experts of 3B each. The router picks 2. Find the total and active parameters.' }), ans(`Total: 2 + 16 × 3 = 50B. Active: 2 + 2 × 3 = 8B.`)),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span>At 2 bytes per parameter, how much memory does a 50B model need?' }), ans('50 × 2 GB = 100 GB.')),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">3.</span>In Figure 9.2, which saves more by going from 1 to 64 experts: the 4B row or the 16B row?' }), ans(`The 4B row, ${f(LOSS[1][0] - LOSS[1][2], 2)} against ${f(LOSS[2][0] - LOSS[2][2], 2)}.`)),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">4.</span>Why does a model with many experts still need a lot of memory?' }), ans('The router may pick any expert for the next token, so all of them must be ready.')))]]
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> A model has 2B shared parameters and 16 experts of 3B each. The router picks 2. Find the total and active parameters.' }), ans(`Total: 2 + 16 × 3 = 50B. Active: 2 + 2 × 3 = 8B.`)),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span> At 2 bytes per parameter, how much memory does a 50B model need?' }), ans('50 × 2 GB = 100 GB.')),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">3.</span> In Figure 9.2, which saves more by going from 1 to 64 experts: the 4B row or the 16B row?' }), ans(`The 4B row, ${f(LOSS[1][0] - LOSS[1][2], 2)} against ${f(LOSS[2][0] - LOSS[2][2], 2)}.`)),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">4.</span> Why does a model with many experts still need a lot of memory?' }), ans('The router may pick any expert for the next token, so all of them must be ready.')))]]
   ];
 
   Book.render({ n: 9, secs, crumb: 'Chapter 9  ·  Mixture of experts', kicker: 'Chapter 9  ·  Going further', title: 'Mixture of experts',

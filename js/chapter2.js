@@ -28,7 +28,7 @@
       ref(P(`<b>Andrej Karpathy</b>, an AI researcher who helped build modern language models, on the Lex Fridman Podcast (#333, October 2022; the transformers segment starts about 38:18). He pictures attention as message passing. Each position holds a vector and broadcasts what it is looking for and what it contains, and positions pass information to each other. In this section’s terms, these correspond to the query and the key. He adds that attention is only one part of the full architecture. ${a(LEX, 'Listen')} \u00b7 ${a(PS, 'Transcript (third-party)')}`)),
       fig(1, '2.2', 'Three roles', 'The query from <i>it</i> is compared with the key of each earlier word. Each word then offers its value.'),
       prose('The model makes all three from a word’s vector, using three learned sets of numbers (parameters). Like every parameter in the model, they are set during training, the subject of Chapter 4.'),
-      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>Which of the three does a word use to ask its question?' }), ans('The query. The keys are what the other words offer, and the values are what they give.')))]],
+      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> Which of the three does a word use to ask its question?' }), ans('The query. The keys are what the other words offer, and the values are what they give.')))]],
     ['2.3', 'Step one: score and weigh', [
       prose('The query of <i>it</i> is compared with the key of every earlier word. The comparison is the dot product from Chapter 1: multiply matching numbers, then add. A bigger result means a better match.',
         'Two more moves turn these scores into weights. First, divide each score by √d, the square root of how many numbers are in each list. The more numbers in each list, the bigger a dot product tends to be. Dividing keeps the scores in a sensible range. With only two numbers per list the effect is small, but real models use hundreds. Then apply softmax, which Chapter 1 introduced and Chapter 5 covers in detail. In Chapter 3, each head works with d ÷ H numbers.'),
@@ -37,7 +37,7 @@
         h('ol', { class: 'steps' }, [h('li', { html: 'Dot product of the query with each key: multiply matching numbers, then add.' }), h('li', { html: 'Divide each by √2, which is about 1.414.' }), h('li', { html: 'Apply softmax: exp of each, then divide by the total.' })]),
         tab(['Word', 'Key', 'Dot product', '÷ 1.414', 'exp', 'Weight'], names.map((n, i) => ({ cells: [n, vec(K[i]), fmt(dots[i], 1), fmt(sc[i], 2), fmt(ex[i], 2), pc(wt[i], 1)], hl: i === 0 ? [5] : [] }))),
         P(`<b>Answer:</b> ${pc(wt[0], 0)} on <i>animal</i>, ${pc(wt[1], 0)} on <i>street</i> and ${pc(wt[2], 0)} on <i>it</i> itself. The exp column adds to about ${fmt(exs, 1)}.`)),
-      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>Two words have keys that give the same score. What are their weights?' }), ans('Equal. Softmax depends only on the scores, so equal scores get equal weights.')))]],
+      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> Two words have keys that give the same score. What are their weights?' }), ans('Equal. Softmax depends only on the scores, so equal scores get equal weights.')))]],
     ['2.4', 'Step two: mix the values', [
       prose('Each word also has a value. The weights say how much of each value to take. Multiply each value by its weight, then add the results.',
         'The blend is the new vector for <i>it</i>.'),
@@ -56,17 +56,17 @@
         tab(['Word read', 'Score', 'exp', 'Weight'], [...['The', 'cat', 'sat'].map((n, i) => ({ cells: [n, fmt(m[i], 1), fmt(me[i], 3), pc(mw[i], 1)] })), ...['on', 'the'].map(n => ({ cells: [n, '−∞', '0', '0%'] })), { cls: 'sum', cells: ['Total', '', fmt(ms, 3), '100%'] }]),
         P(`<b>Answer:</b> ${pc(mw[0], 1)}, ${pc(mw[1], 1)} and ${pc(mw[2], 1)} on the three visible words. The masked words get 0%.`)),
       box('check', 'Check your understanding',
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>Why must the model not read later words while learning?' }), ans('Training text already contains the next word. If the model could read it, it would copy the answer instead of learning to predict it.')),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span>How much weight does the very first word put on itself?' }), ans('100%. It is the only word it may read.')))]],
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> Why must the model not read later words while learning?' }), ans('Training text already contains the next word. If the model could read it, it would copy the answer instead of learning to predict it.')),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span> How much weight does the very first word put on itself?' }), ans('100%. It is the only word it may read.')))]],
     ['2.6', 'Chapter summary and practice', [
       tab(['Word', 'Plain meaning'], [{ cells: ['Attention', 'Each word borrows information from earlier words'] }, { cells: ['Query', 'What this word is looking for'] }, { cells: ['Key', 'What this word offers to others'] }, { cells: ['Value', 'What this word hands over when picked'] }, { cells: ['Attention weights', 'Chances that say how much to take from each word'] }, { cells: ['Causal mask', 'The rule that blocks later words'] }]),
       box('key', 'Chapter in one line', P('Each word asks a question with its query, matches it against the keys, and blends the values in proportion to the match.')),
       prose('Try these before you open the answers.'),
       box('check', 'Exercises',
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>Two keys both score 0 for a query. What are the two weights?' }), ans('50% each. Equal scores get equal weights.')),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span>The weights are 50% and 50%, and the values are (2, 0) and (0, 2). What is the blend?' }), ans('0.5 × (2, 0) + 0.5 × (0, 2) = (1, 0) + (0, 1) = (1, 1).')),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">3.</span>Why divide the scores by √d?' }), ans('The more numbers in each list, the bigger a dot product tends to be. Huge scores make softmax give almost all the weight to one word. Dividing by √d keeps the scores in a sensible range.')),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">4.</span>In a five-word sentence, how many words can the last word read?' }), ans('Five: the four before it, and itself.')))]]
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> Two keys both score 0 for a query. What are the two weights?' }), ans('50% each. Equal scores get equal weights.')),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span> The weights are 50% and 50%, and the values are (2, 0) and (0, 2). What is the blend?' }), ans('0.5 × (2, 0) + 0.5 × (0, 2) = (1, 0) + (0, 1) = (1, 1).')),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">3.</span> Why divide the scores by √d?' }), ans('The more numbers in each list, the bigger a dot product tends to be. Huge scores make softmax give almost all the weight to one word. Dividing by √d keeps the scores in a sensible range.')),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">4.</span> In a five-word sentence, how many words can the last word read?' }), ans('Five: the four before it, and itself.')))]]
   ];
 
   Book.render({ n: 2, secs, crumb: 'Chapter 2  ·  Attention', kicker: 'Chapter 2  ·  The machine', title: 'Attention',

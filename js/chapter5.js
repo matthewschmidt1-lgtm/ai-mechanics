@@ -45,8 +45,8 @@
         tab(['z', 'exp(z)', 'p'], [...z3.map((z, i) => ({ cells: [f(z, 1), f(e3[i], 3), pc(p3[i], 1)], hl: i === 0 ? [2] : [] })), { cls: 'sum', cells: ['Total', f(s3, 3), pc(p3.reduce((a, b) => a + b), 0)] }]),
         P(`<b>Answer:</b> ${pc(p3[0], 1)}, ${pc(p3[1], 1)} and ${pc(p3[2], 1)}. The negative score still gives a positive result (${f(e3[2], 3)}). A lead of 1 point multiplies the result by <i>e</i>, about 2.72.`)),
       box('check', 'Check your understanding',
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>Logits are 5.0 and 5.0. What are the probabilities?' }), ans('50% each. Softmax depends only on the gaps between scores, and here the gap is zero.')),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span>Can a token ever get a chance of exactly 0?' }), ans('Not in the maths. Every exp is positive, so every token keeps a small chance. (A computer may round a tiny chance to 0.)')))]],
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> Logits are 5.0 and 5.0. What are the probabilities?' }), ans('50% each. Softmax depends only on the gaps between scores, and here the gap is zero.')),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span> Can a token ever get a chance of exactly 0?' }), ans('Not in the maths. Every exp is positive, so every token keeps a small chance. (A computer may round a tiny chance to 0.)')))]],
     ['5.3', 'Temperature', [
       prose('Plain softmax gives the model’s own preferences. Sometimes we want it more careful, sometimes more adventurous. The control is <b>temperature</b>, T: divide every score by T before applying softmax.'),
       box('def', 'Definition', P(`${T('Temperature')} (T) is a positive number. Divide every score by T, then apply softmax.`), eq('p<sub>i</sub> = exp(z<sub>i</sub> / T) / Σ<sub>j</sub> exp(z<sub>j</sub> / T)'), P('T = 1: no change. T below 1: the favorite pulls further ahead (more predictable). T above 1: chances even out (more surprising).')),
@@ -82,10 +82,10 @@
       box('key', 'Chapter in one line', P('Softmax turns scores into chances. Temperature makes them sharper or flatter. Then top-p trims the tail and sampling picks one token.')),
       prose('Try these without a calculator first. The answers are one click away.'),
       box('check', 'Exercises',
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>Logits are 1.0 and 0.0. Find the probabilities.' }), ans('exp(1) = 2.718 and exp(0) = 1. They add to 3.718, so 73.1% and 26.9%.')),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span>For the same logits, what are the probabilities at T = 2?' }), ans('The scores become 0.5 and 0. exp(0.5) = 1.649 and exp(0) = 1, which add to 2.649. So 62.2% and 37.8%, flatter than at T = 1.')),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">3.</span>You need a model to pull a date out of an email. Which setting would you choose?' }), ans('Greedy or a very low temperature. There is one right answer, so variety only adds risk.')),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">4.</span>Why does top-p adapt better than top-k when the model is very sure?' }), ans('If one token holds 98%, top-p with p = 0.9 keeps just that token. Top-k with k = 40 would keep 40 tokens and let 39 unlikely ones back in.')))]]
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> Logits are 1.0 and 0.0. Find the probabilities.' }), ans('exp(1) = 2.718 and exp(0) = 1. They add to 3.718, so 73.1% and 26.9%.')),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span> For the same logits, what are the probabilities at T = 2?' }), ans('The scores become 0.5 and 0. exp(0.5) = 1.649 and exp(0) = 1, which add to 2.649. So 62.2% and 37.8%, flatter than at T = 1.')),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">3.</span> You need a model to pull a date out of an email. Which setting would you choose?' }), ans('Greedy or a very low temperature. There is one right answer, so variety only adds risk.')),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">4.</span> Why does top-p adapt better than top-k when the model is very sure?' }), ans('If one token holds 98%, top-p with p = 0.9 keeps just that token. Top-k with k = 40 would keep 40 tokens and let 39 unlikely ones back in.')))]]
   ];
 
   Book.render({ n: 5, secs, crumb: 'Chapter 5  ·  Softmax and decoding', kicker: 'Chapter 5  ·  The machine', title: 'Softmax and decoding',

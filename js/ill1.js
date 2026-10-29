@@ -184,13 +184,13 @@
       T(grp, w, 740, y + 27, { size: 24, weight: 600, fill: i === 0 ? C.ink : C.mute });
       R(grp, 840, y + 6, 240, 28, { r: 6, fill: C.panel });
       R(grp, 840, y + 6, Math.max(4, 240 * PROB[i] / mx), 28, { r: 6, fill: i === 0 ? C.green : '#48484a' });
-      T(grp, (PROB[i] * 100).toFixed(PROB[i] < .02 ? 1 : 0) + '%', 1092, y + 28, { size: 22, mono: true, fill: C.mute });
+      T(grp, (PROB[i] * 100).toFixed(1) + '%', 1092, y + 28, { size: 22, mono: true, fill: C.mute });
     });
     const st = S('g'); g.append(st); rise(st, 2);
     let sx = 740; PROB.forEach((p, i) => { const w = 340 * p; R(st, sx, 518, w, 22, { r: 0, fill: i === 0 ? C.green : ['#48484a', '#636366', '#8e8e93', '#a1a1a6', '#aeaeb2', '#c7c7cc', '#d1d1d6'][i - 1] }); sx += w; });
     T(st, 'sum = 100%', 740, 566, { size: 21, weight: 600, fill: C.mute });
     rise(T(g, 'All positive. They add up to 100%.', 90, 548, { size: 22, fill: C.mute }), 2.1); rise(T(g, 'The ranking of the scores is preserved.', 90, 578, { size: 22, fill: C.mute }), 2.15);
-    rise(T(g, 'shown over these 8 tokens only', 1080, 566, { size: 17, fill: C.dim, anchor: 'end' }), 2.2);
+    rise(T(g, '8 tokens shown', 1080, 566, { size: 17, fill: C.dim, anchor: 'end' }), 2.2);
   }
 
   function ill7(g) {
@@ -206,7 +206,7 @@
       const yy = 256 + i * 54, grp = S('g'); g.append(grp); rise(grp, .5 + i * .1);
       T(grp, w, 90, yy + 30, { size: 26, weight: 600, fill: i === 0 ? C.ink : C.mute });
       R(grp, 190, yy + 6, 380, 32, { r: 7, fill: C.panel }); R(grp, 190, yy + 6, 380 * PROB[i] / mx, 32, { r: 7, fill: i === 0 ? C.green : '#48484a' });
-      T(grp, (PROB[i] * 100).toFixed(0) + '%', 584, yy + 31, { size: 23, mono: true, fill: C.mute });
+      T(grp, (PROB[i] * 100).toFixed(1) + '%', 584, yy + 31, { size: 23, mono: true, fill: C.mute });
     });
     const pk = S('g'); g.append(pk); rise(pk, 1.2);
     P(pk, `M 520 266 C 640 200, ${slotX + 30} 200, ${slotX + 55} ${y + 70}`, { stroke: C.green, sw: 3 }); arrowHead(pk, slotX + 55, y + 66, 90, C.green, 12);

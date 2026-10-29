@@ -46,7 +46,7 @@
         tab(['Answer token', 'p', 'Loss = −ln(p)'], [...pa.map((p, i) => ({ cells: [String(i + 1), pc(p, 0), f(la[i], 3)] })), { cls: 'sum', cells: ['Average', '', f(avg, 3)] }]),
         P(`<b>Answer:</b> ${f(avg, 2)}. Training nudges the weights to lower it.`)),
       ref(P(`<b>Karpathy on the Dwarkesh Patel podcast</b> (October 2025, around 41:00). He found it striking how quickly a base model, fine-tuned on example conversations, turns into an assistant while keeping what it learned in pretraining. ${a(YT, 'Watch')} · ${a(DW, 'Transcript')}`)),
-      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>Why does the loss count only the answer tokens?' }), ans('The goal is to teach the model to write good answers. The prompt is given, not something it should learn to produce. (This is the usual choice, not a universal rule.)')))]],
+      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> Why does the loss count only the answer tokens?' }), ans('The goal is to teach the model to write good answers. The prompt is given, not something it should learn to produce. (This is the usual choice, not a universal rule.)')))]],
     ['8.3', 'Stage three: learn from preferences', [
       prose('Examples are expensive to write. Comparing is easier. Show a person two answers and ask which is better.',
         'A second network, the <b>reward model</b>, learns to give higher scores to the answers people prefer.'),
@@ -78,7 +78,7 @@
       box('analogy', 'Analogy', P('A student who studies the test’s quirks instead of the subject. The grade rises. The learning does not.')),
       prose('A <b>judge</b> is any scorer, human or AI, that decides how good an answer is. One safeguard is a penalty for drifting too far from the fine-tuned model it started as. Another is to retrain the scorer on fresh examples. Neither removes the problem.'),
       ref(P(`<b>Karpathy on the Dwarkesh Patel podcast</b> (October 2025, around 45:00 to 49:00). He says that scoring each step is hard, so AI companies often use another AI as the judge, and that such judges can be gamed. He describes a training run against an AI judge where the score suddenly became perfect, but the answers were nonsense that the judge rated as perfect. Fixing each trick, he suggests, only creates a new judge with new tricks. ${a(YT, 'Watch')} · ${a(DW, 'Transcript')}`)),
-      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>A model’s reward score keeps rising, but its answers are getting worse. What is the most likely cause?' }), ans('Reward hacking. The model has found ways to raise the score that do not make the answers better.')))]],
+      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> A model’s reward score keeps rising, but its answers are getting worse. What is the most likely cause?' }), ans('Reward hacking. The model has found ways to raise the score that do not make the answers better.')))]],
     ['8.6', 'Further listening', [
       prose('This chapter paraphrases public talks. Listen to the originals for Karpathy’s exact words and the context around them.'),
       h('table', { class: 'summary-table' }, h('tr', {}, ['Talk', 'Worth listening for'].map(t => h('th', {}, t))),
@@ -90,11 +90,11 @@
       box('key', 'Chapter in one line', P('Pretraining teaches a model language. Post-training teaches it to help, using examples, human preferences and rewards, and each of those can be gamed.')),
       prose('Try these before you open the answers.'),
       box('check', 'Exercises',
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>A reward model scores two answers 1.0 and 1.0. What is the chance it prefers the first?' }), ans('50%. The gap is 0, and sigmoid(0) = 0.5.')),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span>A model gets a problem right 4 times out of 8. What is the average reward, and how far is a right attempt above it?' }), ans('The average is 4 ÷ 8 = 0.5. A right attempt is 1 − 0.5 = +0.5 above it, and a wrong one is −0.5 below.')),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">3.</span>In fine-tuning, the model gave two answer tokens a chance of 50% each. What is the average loss?' }), ans(`−ln(0.5) = ${f(loss(.5), 3)} for each token, so the average is ${f(loss(.5), 2)}.`)),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">4.</span>A reward model scores two answers 3.0 and 0.5. Is its chance of preferring the first above or below 90%?' }), ans('Above. The gap is 2.5, and sigmoid(2.5) = 1 ÷ (1 + 0.082) = 92.4%.')),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">5.</span>Why is a base model not a good assistant?' }), ans('It was trained to continue documents, not to answer questions, so it may just write more questions.')))]]
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> A reward model scores two answers 1.0 and 1.0. What is the chance it prefers the first?' }), ans('50%. The gap is 0, and sigmoid(0) = 0.5.')),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span> A model gets a problem right 4 times out of 8. What is the average reward, and how far is a right attempt above it?' }), ans('The average is 4 ÷ 8 = 0.5. A right attempt is 1 − 0.5 = +0.5 above it, and a wrong one is −0.5 below.')),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">3.</span> In fine-tuning, the model gave two answer tokens a chance of 50% each. What is the average loss?' }), ans(`−ln(0.5) = ${f(loss(.5), 3)} for each token, so the average is ${f(loss(.5), 2)}.`)),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">4.</span> A reward model scores two answers 3.0 and 0.5. Is its chance of preferring the first above or below 90%?' }), ans('Above. The gap is 2.5, and sigmoid(2.5) = 1 ÷ (1 + 0.082) = 92.4%.')),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">5.</span> Why is a base model not a good assistant?' }), ans('It was trained to continue documents, not to answer questions, so it may just write more questions.')))]]
   ];
 
   Book.render({ n: 8, secs, crumb: 'Chapter 8  ·  How chat models are tuned', kicker: 'Chapter 8  ·  From model to assistant', title: 'How chat models are tuned',

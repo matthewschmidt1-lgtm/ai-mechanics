@@ -59,8 +59,8 @@
         P(`<b>Answer:</b> ${f(loss(.9), 2)}, ${f(loss(.5), 2)}, ${f(loss(.1), 2)} and ${f(loss(.01), 2)}. Dropping from 10% to 1% adds 2.30 to the loss. Dropping from 50% to 10% adds only 1.61.`)),
       box('key', 'Key idea', P('Loss is low when the true word got a high chance, and very high when the model was confident and wrong.')),
       box('check', 'Check your understanding',
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>The model gave the true word a chance of 1 (100%). What is the loss?' }), ans('Zero. −ln(1) = 0. A perfect guess costs nothing.')),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span>Which is worse: giving the true word 1% or 10%?' }), ans(`1%. Its loss is ${f(loss(.01), 2)}, against ${f(loss(.1), 2)} for 10%.`)))]],
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> The model gave the true word a chance of 1 (100%). What is the loss?' }), ans('Zero. −ln(1) = 0. A perfect guess costs nothing.')),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span> Which is worse: giving the true word 1% or 10%?' }), ans(`1%. Its loss is ${f(loss(.01), 2)}, against ${f(loss(.1), 2)} for 10%.`)))]],
     ['4.3', 'One number for the whole model', [
       prose('One guess teaches a noisy lesson. So training averages the loss over many guesses. That average is one number for how well the model is doing.'),
       box('example', 'Worked example 4.2  ·  Average loss', P('A model makes four guesses and gives the true word these chances: 50%, 20%, 80% and 10%. What is the average loss?'),
@@ -77,7 +77,7 @@
       box('def', 'Definition', P(`A ${T('parameter')} is one adjustable number inside the model, also called a <b>weight</b>. All of the model’s knowledge lives in its parameters.`), P(`The ${T('gradient')} is the slope of the loss at the current setting. It says which way the loss rises, and how steeply.`)),
       fig(2, '4.3', 'Loss for one dial', 'At w = 0 the slope is −6, so the loss falls as w increases. The lowest loss is at w = 3.'),
       box('analogy', 'Analogy', P('A hiker in thick fog cannot see the valley. But the hiker can feel which way the ground slopes underfoot. Step downhill, feel again, step again.')),
-      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>At w = 5 the slope is 2(5 − 3) = 4. Which way should we turn the dial?' }), ans('Down. A positive slope means the loss rises as w rises, so we lower w.')))]],
+      box('check', 'Check your understanding', h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> At w = 5 the slope is 2(5 − 3) = 4. Which way should we turn the dial?' }), ans('Down. A positive slope means the loss rises as w rises, so we lower w.')))]],
     ['4.5', 'Gradient descent', [
       prose('The rule is simple: step <b>against</b> the slope. How far to step depends on the slope and on a number we choose, the <b>learning rate</b>.'),
       box('def', 'Definition', P(`${T('Gradient descent')} repeats one update. The ${T('learning rate')} sets how big each step is.`), eq('new w = old w − learning rate × slope')),
@@ -92,8 +92,8 @@
         P(`<b>Answer:</b> each step overshoots the bottom and lands farther away. The loss grows from ${f(B[0].l, 1)} to ${f(B[3].l, 1)}.`)),
       box('key', 'Key idea', P('Too small is slow. Too big overshoots. The learning rate is chosen in between.')),
       box('check', 'Check your understanding',
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>What happens when the slope is exactly 0?' }), ans('The update does nothing: new w = old w − learning rate × 0. We are at a flat spot, such as the bottom of the valley.')),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span>Why do the steps get smaller as we approach the bottom?' }), ans('Each step is the learning rate times the slope. The slope shrinks as the ground flattens, so the steps shrink too.')))]],
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> What happens when the slope is exactly 0?' }), ans('The update does nothing: new w = old w − learning rate × 0. We are at a flat spot, such as the bottom of the valley.')),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span> Why do the steps get smaller as we approach the bottom?' }), ans('Each step is the learning rate times the slope. The slope shrinks as the ground flattens, so the steps shrink too.')))]],
     ['4.6', 'Billions of dials', [
       prose('A real model has billions of dials, not one. The idea is unchanged. For every dial, find its slope. Then turn every dial a little downhill.',
         'Finding billions of slopes sounds impossible. It is not.'),
@@ -107,10 +107,10 @@
       box('key', 'Chapter in one line', P('Training measures each mistake as a loss, finds which way to turn every dial, and nudges them all downhill, over and over.')),
       prose('Try these before you open the answers.'),
       box('check', 'Exercises',
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span>The model gave the true word a chance of 25%. Find the loss.' }), ans(`−ln(0.25) = ${f(loss(.25), 2)}.`)),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span>A dial is at w = 5, the slope is 4, and the learning rate is 0.1. What is the new w?' }), ans('new w = 5 − 0.1 × 4 = 4.6.')),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">3.</span>Why not always use the smallest learning rate, to be safe?' }), ans('Tiny steps are safe but slow. Training a large model already takes weeks, so wasted steps are expensive.')),
-        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">4.</span>Why does an untrained model with 50,000 tokens start with a loss near 10.8?' }), ans('It gives each token a chance of 1 in 50,000. −ln(1/50,000) is about 10.8.')))]]
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">1.</span> The model gave the true word a chance of 25%. Find the loss.' }), ans(`−ln(0.25) = ${f(loss(.25), 2)}.`)),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">2.</span> A dial is at w = 5, the slope is 4, and the learning rate is 0.1. What is the new w?' }), ans('new w = 5 − 0.1 × 4 = 4.6.')),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">3.</span> Why not always use the smallest learning rate, to be safe?' }), ans('Tiny steps are safe but slow. Training a large model already takes weeks, so wasted steps are expensive.')),
+        h('div', { class: 'q' }, h('div', { class: 'qt', html: '<span class="qn">4.</span> Why does an untrained model with 50,000 tokens start with a loss near 10.8?' }), ans('It gives each token a chance of 1 in 50,000. −ln(1/50,000) is about 10.8.')))]]
   ];
 
   Book.render({ n: 4, secs, crumb: 'Chapter 4  ·  Loss and gradient descent', kicker: 'Chapter 4  ·  The machine', title: 'Loss and gradient descent',
