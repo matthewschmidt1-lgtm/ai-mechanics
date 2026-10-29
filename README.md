@@ -23,7 +23,7 @@ Then open http://localhost:8000.
 | `js/illN.js` | The figures for chapter N |
 | `js/book.js` | The shared page engine (contents, boxes, figures, navigation, progress) |
 | `js/kit.js` | Drawing helpers for the figures |
-| `js/prefs.js` | The Accessibility button: text size, theme, high contrast and reduced motion, remembered on the reader's device; also the footer number cruncher |
+| `js/prefs.js` | The Accessibility button: text size, theme, high contrast and reduced motion, remembered on the reader's device |
 | `css/book.css` | All styles, light and dark |
 
 Progress (which chapters you have finished) is stored only in the reader's own browser. The site collects no data.
