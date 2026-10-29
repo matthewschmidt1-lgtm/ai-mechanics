@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://matthewschmidt1-lgtm.github.io/ai-mechanics/sitemap.xml
